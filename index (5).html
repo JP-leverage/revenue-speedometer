@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Speedometer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #080c14;
+    --panel:  #0e1623;
+    --border: #182535;
+    --text:   #dce8f5;
+    --muted:  #3d5570;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px;
+    background-image:
+      radial-gradient(ellipse at 20% 40%, rgba(0,160,255,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 60%, rgba(160,60,255,0.06) 0%, transparent 55%);
+  }
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(24px, 4vw, 44px);
+    letter-spacing: 6px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .page-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,230,100,0.08);
+    border: 1px solid rgba(0,230,100,0.25);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #00e664;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #00e664;
+    animation: livePulse 1.5s ease-in-out infinite;
+  }
+  @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+
+  /* Countdown */
+  .countdown-wrap { text-align: center; margin-bottom: 28px; }
+  .countdown-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .countdown-blocks { display: inline-flex; align-items: center; gap: 8px; }
+  .cd-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 10px 20px;
+    min-width: 76px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .cd-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 15%; right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,190,0,0.5), transparent);
+  }
+  .cd-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 2px;
+    line-height: 1;
+    color: #ffc233;
+    text-shadow: 0 0 16px rgba(255,180,0,0.4);
+    transition: color 0.4s;
+  }
+  .cd-unit { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .cd-sep { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--muted); opacity: 0.4; padding-bottom: 14px; }
+  .cd-block.urgent { border-color: rgba(255,60,60,0.3); }
+  .cd-block.urgent::before { background: linear-gradient(90deg, transparent, rgba(255,60,60,0.5), transparent); }
+  .cd-block.urgent .cd-num { color: #ff4444; text-shadow: 0 0 16px rgba(255,50,50,0.5); }
+
+  /* Gauge cards */
+  .gauges-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 1120px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .gauge-card {
+    flex: 1;
+    min-width: 340px;
+    max-width: 530px;
+    background: var(--panel);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    padding: 28px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .gauge-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 12%; right: 12%;
+    height: 1px;
+  }
+  .homes::before  { background: linear-gradient(90deg, transparent, #00c8ff, transparent); }
+  .brkcty::before { background: linear-gradient(90deg, transparent, #ffffff, transparent); }
+
+  .homes  .card-label { color: #00b8ff; }
+  .brkcty .card-label { color: #e8e8e8; }
+  .card-sub { font-size: 10px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; text-align: center; line-height: 1.5; }
+  .card-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 6px;
+  }
+  .brkcty .card-logo {
+    mix-blend-mode: screen;
+  }
+  .card-label { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 4px; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  .goal-badge {
+    display: none;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    animation: blink 2s ease-in-out infinite;
+  }
+  .homes  .card-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 6px;
+  }
+  .brkcty .card-logo {
+    mix-blend-mode: screen;
+  }
+  .card-label { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 4px; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  .goal-badge { background: rgba(0,200,255,0.1); border: 1px solid rgba(0,200,255,0.4); color: #00d4ff; }
+  .brkcty .goal-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.3); color: #ffffff; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.45} }
+  canvas.speedo { width: 100%; max-width: 460px; height: auto; display: block; }
+  .readout { text-align: center; margin-top: -10px; margin-bottom: 14px; }
+  .readout-val { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 7vw, 66px); letter-spacing: 2px; line-height: 1; }
+  .homes  .readout-val { color: #00d4ff; text-shadow: 0 0 24px rgba(0,210,255,0.4); }
+  .brkcty .readout-val { color: #ffffff; text-shadow: 0 0 24px rgba(255,255,255,0.4); }
+  .readout-sub { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 5px; }
+  .bar-wrap { width: 100%; margin-bottom: 14px; }
+  .bar-meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-bottom: 5px; letter-spacing: 1px; }
+  .homes  .bar-meta .bar-pct { color: #00b8ff; font-weight: 700; }
+  .brkcty .bar-meta .bar-pct { color: #e8e8e8; font-weight: 700; }
+  .bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; width: 0; transition: width 1.8s cubic-bezier(.4,0,.2,1); }
+  .homes  .bar-fill { background: linear-gradient(90deg, #005588, #00d4ff); box-shadow: 0 0 8px rgba(0,210,255,0.5); }
+  .brkcty .bar-fill { background: linear-gradient(90deg, #444444, #ffffff); box-shadow: 0 0 8px rgba(255,255,255,0.4); }
+  .stats { display: flex; width: 100%; border-top: 1px solid var(--border); padding-top: 14px; }
+  .stat { flex: 1; text-align: center; }
+  .stat + .stat { border-left: 1px solid var(--border); }
+  .stat-lbl { font-size: 9px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; }
+  .stat-val { font-size: 14px; font-weight: 700; color: var(--text); }
+  .total-box {
+    width: 100%;
+    max-width: 1120px;
+    background: #0e1623;
+    border: 1px solid #182535;
+    border-radius: 24px;
+    padding: 24px 32px;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .total-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 12%; right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  }
+  .total-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .total-label { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 4px; color: #dce8f5; }
+  .total-amount { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+  .total-goal-lbl { font-size: 10px; color: #3d5570; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .total-track { height: 28px; background: #111e2f; border-radius: 14px; overflow: hidden; position: relative; }
+  .total-fill {
+    height: 100%; border-radius: 14px; width: 0;
+    transition: width 2s cubic-bezier(.4,0,.2,1);
+    background: linear-gradient(90deg, #003366, #0077aa, #00d4ff 45%, #aaaaaa, #ffffff);
+    box-shadow: 0 0 20px rgba(150,220,255,0.4);
+  }
+  .total-pct-label {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px;
+    color: #fff; text-shadow: 0 0 8px rgba(0,0,0,0.8); z-index: 2;
+  }
+  .total-stats { display: flex; justify-content: space-between; margin-top: 12px; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #3d5570; }
+  .total-stats span { color: #dce8f5; font-weight: 700; }
+  .footer { margin-top: 22px; font-size: 10px; color: var(--muted); letter-spacing: 1px; text-align: center; }
+  .footer span { color: #00e664; }
+</style>
+</head>
+<body>
+
+<div class="page-title">Monthly Revenue Tracker</div>
+<div class="page-sub">Q1 2026 &nbsp;·&nbsp; $1,000,000 Goal Each Division</div>
+<div class="live-badge"><div class="live-dot"></div>&nbsp;Live · Coefficient + Salesforce</div>
+
+<div class="countdown-wrap">
+  <div class="countdown-label">Q1 Ends March 31, 2026</div>
+  <div class="countdown-blocks">
+    <div class="cd-block" id="cd-day-block"><div class="cd-num" id="cd-days">--</div><div class="cd-unit">Days</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block" id="cd-hr-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-unit">Hours</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block" id="cd-min-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-unit">Mins</div></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-block" id="cd-sec-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-unit">Secs</div></div>
+  </div>
+</div>
+
+<div class="gauges-row">
+  <div class="gauge-card homes">
+    <img class="card-logo" src="LeverageHomes_Emblem_Color__2_.png" alt="Homes Logo">
+    <div class="card-label">Homes</div>
+    <div class="card-sub">Leverage Homes Total Net Revenue</div>
+    <div class="goal-badge" id="homesBadge">🎉 Goal Reached!</div>
+    <canvas class="speedo" id="c1" width="460" height="270"></canvas>
+    <div class="readout">
+      <div class="readout-val" id="h_val">$0</div>
+      <div class="readout-sub">of $1,000,000 goal</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-meta"><span>Progress</span><span class="bar-pct" id="h_pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="h_bar"></div></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-lbl">Raised</div><div class="stat-val" id="h_raised">—</div></div>
+      <div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="h_remain">—</div></div>
+      <div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="h_comp">—</div></div>
+    </div>
+  </div>
+
+  <div class="gauge-card brkcty">
+    <img class="card-logo" src="Brick_City_Capital_-_Emblem_-_White.png" alt="BrkCty Logo">
+    <div class="card-label">BrkCty</div>
+    <div class="card-sub">Brick City Capital Frontend and Backend Revenue</div>
+    <div class="goal-badge" id="brkctyBadge">🎉 Goal Reached!</div>
+    <canvas class="speedo" id="c2" width="460" height="270"></canvas>
+    <div class="readout">
+      <div class="readout-val" id="b_val">$0</div>
+      <div class="readout-sub">of $1,000,000 goal</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-meta"><span>Progress</span><span class="bar-pct" id="b_pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="b_bar"></div></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-lbl">Raised</div><div class="stat-val" id="b_raised">—</div></div>
+      <div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="b_remain">—</div></div>
+      <div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="b_comp">—</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="total-box">
+  <div class="total-header">
+    <div class="total-label">Combined Revenue</div>
+    <div class="total-amount" id="total_val">$0</div>
+  </div>
+  <div class="total-goal-lbl">of $2,000,000 combined goal</div>
+  <div class="total-track">
+    <div class="total-fill" id="total_bar"></div>
+    <div class="total-pct-label" id="total_pct">0%</div>
+  </div>
+  <div class="total-stats">
+    <div>Homes: <span id="ts_homes">—</span></div>
+    <div>BrkCty: <span id="ts_brkcty">—</span></div>
+    <div>Remaining: <span id="ts_remain">—</span></div>
+  </div>
+</div>
+
+<div class="footer">Last synced: <span id="lastUpdated">loading...</span> &nbsp;·&nbsp; Updates every 5 minutes</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// ONLY THING TO EDIT: Your Google Sheet ID
+// Found in your sheet URL: /spreadsheets/d/SHEET_ID/edit
+// ══════════════════════════════════════════════════════
+const SHEET_ID = '12FZJx0TZZ27B9eliR0HKrtDjGnx0lkQo8qwmnVk4xSI';
+const GOAL     = 1000000;
+// ══════════════════════════════════════════════════════
+
+function money(n) {
+  const a = Math.abs(n);
+  if (a >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+  if (a >= 1e3) return '$' + Math.round(n).toLocaleString();
+  return '$' + Math.round(n);
+}
+
+function drawSpeedo(canvasId, pct, accent, glow, hub) {
+  const canvas = document.getElementById(canvasId);
+  const ctx    = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.save();
+  ctx.clearRect(0, 0, W, H);
+  ctx.shadowBlur = 0; ctx.shadowColor = 'transparent'; ctx.globalAlpha = 1;
+
+  const cx = W/2, cy = H-18, R = H-48;
+  const DEG = Math.PI/180;
+  const START = 200*DEG, SWEEP = 140*DEG, END = START+SWEEP;
+  const nAng = START + SWEEP * Math.min(pct, 1.02);
+
+  // Track
+  ctx.beginPath(); ctx.arc(cx,cy,R,START,END);
+  ctx.strokeStyle='#111e2f'; ctx.lineWidth=22; ctx.lineCap='round'; ctx.stroke();
+
+  // Zone bands
+  [{to:.25,c:'#1a2f45'},{to:.50,c:'#1a3d55'},{to:.75,c:'#1a4d60'},{to:1,c:accent}].reduce((prev,z)=>{
+    const ea = START+SWEEP*z.to;
+    ctx.beginPath(); ctx.arc(cx,cy,R,prev,ea);
+    ctx.strokeStyle=z.c; ctx.lineWidth=5; ctx.lineCap='butt'; ctx.globalAlpha=0.32; ctx.stroke(); ctx.globalAlpha=1;
+    return ea;
+  }, START);
+
+  // Active arc
+  if (pct > 0) {
+    ctx.beginPath(); ctx.arc(cx,cy,R,START,nAng);
+    ctx.strokeStyle=accent; ctx.lineWidth=14; ctx.lineCap='round';
+    ctx.shadowColor=glow; ctx.shadowBlur=20; ctx.stroke();
+    ctx.shadowBlur=0; ctx.shadowColor='transparent';
+  }
+
+  // Ticks + labels
+  for (let i=0; i<=10; i++) {
+    const a=START+SWEEP*(i/10), on=(i/10)<=pct;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*(R-28), cy+Math.sin(a)*(R-28));
+    ctx.lineTo(cx+Math.cos(a)*(R-12), cy+Math.sin(a)*(R-12));
+    ctx.strokeStyle=on?accent:'#1c3050'; ctx.lineWidth=2; ctx.globalAlpha=on?.9:.4; ctx.stroke(); ctx.globalAlpha=1;
+    const val=GOAL*i/10;
+    ctx.fillStyle=on?accent:'#243a55'; ctx.globalAlpha=on?.85:.38;
+    ctx.font='500 11px "DM Sans",sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(val===0?'$0':val>=1e6?'$1M':'$'+(val/1000)+'K', cx+Math.cos(a)*(R-46), cy+Math.sin(a)*(R-46));
+    ctx.globalAlpha=1;
+  }
+
+  // Minor ticks
+  for (let i=0; i<=40; i++) {
+    if (i%4===0) continue;
+    const a=START+SWEEP*(i/40);
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*(R-18),cy+Math.sin(a)*(R-18));
+    ctx.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));
+    ctx.strokeStyle='#182a40'; ctx.lineWidth=1; ctx.globalAlpha=.55; ctx.stroke(); ctx.globalAlpha=1;
+  }
+
+  // Needle
+  const nLen=R-30, nBack=24, nW=4;
+  const tipX=cx+Math.cos(nAng)*nLen, tipY=cy+Math.sin(nAng)*nLen;
+  const tailX=cx-Math.cos(nAng)*nBack, tailY=cy-Math.sin(nAng)*nBack;
+  const perp=nAng+Math.PI/2;
+  const w1x=cx+Math.cos(perp)*nW, w1y=cy+Math.sin(perp)*nW;
+  const w2x=cx-Math.cos(perp)*nW, w2y=cy-Math.sin(perp)*nW;
+  ctx.shadowColor=glow; ctx.shadowBlur=16;
+  ctx.beginPath(); ctx.moveTo(tailX,tailY); ctx.lineTo(w1x,w1y); ctx.lineTo(tipX,tipY); ctx.lineTo(w2x,w2y);
+  ctx.closePath(); ctx.fillStyle='#ffffff'; ctx.fill();
+  ctx.beginPath(); ctx.arc(tipX,tipY,3.5,0,Math.PI*2);
+  ctx.fillStyle=accent; ctx.shadowBlur=18; ctx.fill();
+  ctx.shadowBlur=0; ctx.shadowColor='transparent';
+
+  // Hub
+  ctx.beginPath(); ctx.arc(cx,cy,19,0,Math.PI*2); ctx.fillStyle='#090f1a'; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx,cy,12,0,Math.PI*2); ctx.fillStyle=hub; ctx.shadowColor=glow; ctx.shadowBlur=12; ctx.fill();
+  ctx.shadowBlur=0; ctx.shadowColor='transparent';
+  ctx.beginPath(); ctx.arc(cx,cy,5,0,Math.PI*2); ctx.fillStyle='#ffffff'; ctx.fill();
+  ctx.restore();
+}
+
+let curH=0, curB=0;
+let curT=0;
+function animateTo(toH, toB, toT) {
+  toT = toT !== undefined ? toT : (toH + toB);
+  const fromH=curH, fromB=curB, fromT=curT, t0=performance.now(), DUR=2000;
+  (function frame(ts) {
+    const t=Math.min((ts-t0)/DUR,1), ease=1-Math.pow(1-t,3);
+    curH=fromH+(toH-fromH)*ease;
+    curB=fromB+(toB-fromB)*ease;
+    curT=fromT+(toT-fromT)*ease;
+    drawSpeedo('c1',curH/GOAL,'#00d4ff','rgba(0,210,255,0.75)','#0077aa');
+    drawSpeedo('c2',curB/GOAL,'#d0d0d0','rgba(255,255,255,0.8)','#888888','#222222');
+    updateLabels(curH,curB,curT);
+    if (t<1) requestAnimationFrame(frame);
+  })(t0);
+}
+
+function updateLabels(hV,bV,tV) { tV = tV !== undefined ? tV : (hV+bV);
+  const hP=Math.min(hV/GOAL,1), bP=Math.min(bV/GOAL,1);
+  document.getElementById('h_val').textContent=money(hV);
+  document.getElementById('b_val').textContent=money(bV);
+  document.getElementById('h_pct').textContent=(hP*100).toFixed(1)+'%';
+  document.getElementById('b_pct').textContent=(bP*100).toFixed(1)+'%';
+  document.getElementById('h_bar').style.width=Math.min(hP*100,100)+'%';
+  document.getElementById('b_bar').style.width=Math.min(bP*100,100)+'%';
+  document.getElementById('h_raised').textContent=money(hV);
+  document.getElementById('b_raised').textContent=money(bV);
+  document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'✅ Done';
+  document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'✅ Done';
+  document.getElementById('h_comp').textContent=(hP*100).toFixed(1)+'%';
+  document.getElementById('b_comp').textContent=(bP*100).toFixed(1)+'%';
+  if(hV>=GOAL) document.getElementById('homesBadge').style.display='block';
+  if(bV>=GOAL) document.getElementById('brkctyBadge').style.display='block';
+
+  // Combined total bar — reads from C2 via tV
+  const COMBINED_GOAL = 2000000;
+  const tP = Math.min(tV / COMBINED_GOAL, 1);
+  if(document.getElementById('total_val')) {
+    document.getElementById('total_val').textContent = money(tV);
+    document.getElementById('total_bar').style.width = (tP*100)+'%';
+    document.getElementById('total_pct').textContent = (tP*100).toFixed(1)+'%';
+    document.getElementById('ts_homes').textContent = money(hV);
+    document.getElementById('ts_brkcty').textContent = money(bV);
+    document.getElementById('ts_remain').textContent = (COMBINED_GOAL-tV)>0 ? money(COMBINED_GOAL-tV) : '✅ Done';
+  }
+}
+
+// Countdown
+function updateCountdown() {
+  const diff = new Date('2026-04-01T00:00:00') - new Date();
+  if (diff<=0) {
+    ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id=>document.getElementById(id).textContent='00');
+    document.querySelector('.countdown-label').textContent='🎉 Q1 Complete!';
+    return;
+  }
+  const days=Math.floor(diff/86400000), hours=Math.floor((diff%86400000)/3600000),
+        mins=Math.floor((diff%3600000)/60000), secs=Math.floor((diff%60000)/1000);
+  document.getElementById('cd-days').textContent=String(days).padStart(2,'0');
+  document.getElementById('cd-hours').textContent=String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent=String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent=String(secs).padStart(2,'0');
+  const urgent=days<3;
+  ['cd-day-block','cd-hr-block','cd-min-block','cd-sec-block'].forEach(id=>{
+    document.getElementById(id).classList.toggle('urgent',urgent);
+  });
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Fetch live data directly from Google Sheets ──────────────────
+// This reads your Sum tab directly — no Apps Script session needed.
+// Works forever without timing out or going white.
+function fetchData() {
+  const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID +
+              '/gviz/tq?tqx=out:json&sheet=Sum&range=A2:C2&bust=' + Date.now() + Math.random();
+  fetch(url, { cache: 'no-store' })
+    .then(r => r.text())
+    .then(text => {
+      const json  = JSON.parse(text.match(/setResponse\((\{[\s\S]*?\})\);/)[1]);
+      const row   = json.table.rows[0].c;
+      const homes  = (row[0]&&row[0].v) ? parseFloat(row[0].v) : curH;
+      const brkcty = (row[1]&&row[1].v) ? parseFloat(row[1].v) : curB;
+      const total  = (row[2]&&row[2].v) ? parseFloat(row[2].v) : (homes + brkcty);
+      const now    = new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+      document.getElementById('lastUpdated').textContent = now;
+      animateTo(homes, brkcty, total);
+    })
+    .catch(() => {
+      // Network hiccup — keep showing current values, try again next cycle
+    });
+}
+
+// Load immediately, then refresh every 5 minutes
+fetchData();
+setInterval(fetchData, 300000);
+
+// ── Nuclear option: if body ever loses its background, reload ────
+// Catches ANY cause of white screen — session expiry, JS crash, etc.
+setInterval(function() {
+  const bg = window.getComputedStyle(document.body).backgroundColor;
+  // Our background is dark — if it's white/transparent something broke
+  if (bg === 'rgba(0, 0, 0, 0)' || bg === 'rgb(255, 255, 255)' || bg === '') {
+    location.reload(true);
+  }
+}, 3000);
+
+// Also catch any uncaught errors and reload after 3s
+window.onerror = function(msg, src, line, col, err) {
+  setTimeout(function() { location.reload(true); }, 3000);
+  return true;
+};
+</script>
+</body>
+</html>
