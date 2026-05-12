@@ -70,7 +70,7 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-
 .campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 
 .page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(44px,6vw,82px);line-height:1;letter-spacing:-1px;margin-bottom:4px}
-.page-title .accent{background:linear-gradient(135deg,var(--gold-l),var(--copper),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:brightness(1.15)}
+.page-title .accent{background:linear-gradient(135deg,#8899aa,#ccd4dd,#ffffff,#ccd4dd,#99aabb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:brightness(1.1)}
 .page-sub{font-weight:500;font-size:14px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:2px}
 .page-sub em{font-style:italic;font-family:'Playfair Display',serif;color:var(--gold);letter-spacing:0;text-transform:none}
 
@@ -79,15 +79,15 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-
 @keyframes lp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.5)}}
 
 /* ═══ COUNTDOWN ═══ */
-.cd-wrap{text-align:center;margin-bottom:16px;width:100%;max-width:1440px;background:var(--panel);border:2px solid var(--panel-b);border-radius:24px;padding:20px 36px;position:relative;overflow:hidden}
-.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cd-wrap{text-align:center;margin-bottom:16px;width:100%;max-width:1440px;background:var(--panel);border:2px solid rgba(50,220,100,.18);border-radius:24px;padding:20px 36px;position:relative;overflow:hidden}
+.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,#44dd66,transparent)}
 .cd-label{font-weight:600;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .cd-blocks{display:flex;align-items:center;justify-content:center;gap:12px}
-.cd-block{background:rgba(255,220,80,.05);border:2px solid rgba(255,220,80,.15);border-radius:16px;padding:10px 0;flex:1;max-width:200px;text-align:center;position:relative;overflow:hidden;transition:all .5s}
-.cd-block::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.6}
-.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8.5vw,115px);letter-spacing:4px;line-height:1;color:var(--gold-l);text-shadow:0 0 20px rgba(255,220,80,.8),0 0 50px rgba(255,220,80,.5),0 0 100px rgba(255,220,80,.25)}
+.cd-block{background:rgba(50,220,100,.05);border:2px solid rgba(50,220,100,.18);border-radius:16px;padding:10px 0;flex:1;max-width:200px;text-align:center;position:relative;overflow:hidden;transition:all .5s}
+.cd-block::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,#44dd66,transparent);opacity:.6}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8.5vw,115px);letter-spacing:4px;line-height:1;color:#55ee77;text-shadow:0 0 20px rgba(50,230,100,.8),0 0 50px rgba(50,230,100,.5),0 0 100px rgba(50,230,100,.25)}
 .cd-unit{font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-top:2px}
-.cd-sep{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,56px);color:var(--gold);opacity:.5;padding-bottom:16px;flex-shrink:0}
+.cd-sep{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,56px);color:#44dd66;opacity:.5;padding-bottom:16px;flex-shrink:0}
 .cd-block.urgent{border-color:rgba(255,70,40,.4)}.cd-block.urgent::before{background:linear-gradient(90deg,transparent,#ff4422,transparent)}.cd-block.urgent .cd-num{color:#ff5533;text-shadow:0 0 20px rgba(255,70,40,.9),0 0 50px rgba(255,70,40,.6),0 0 100px rgba(255,70,40,.3)}
 
 /* ═══ GAUGE CARDS ═══ */
