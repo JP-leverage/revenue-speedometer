@@ -4,13 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Money May — Leverage Companies</title>
+<title>Juiced-Up June — Leverage Companies</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Outfit:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#030508;--panel:#0a0f18;--panel-b:rgba(255,200,80,.18);
-  --text:#fff;--muted:#99917e;
-  --gold:#ffdd55;--gold-l:#ffee77;--gold-d:#bb9930;--copper:#ffaa44;
+  --bg:#030508;--panel:#0a0f18;--panel-b:rgba(255,140,40,.18);
+  --text:#fff;--muted:#998b78;
+  --gold:#ff7a1a;--gold-l:#ff9d4d;--gold-d:#d6892b;--copper:#ffaa44;
+  --lime:#c6ff3a;--lime-l:#d9ff6b;
   --sage:#77dd55;--sage-l:#99ff66;
   --homes:#00ddff;--homes-g:#55eeff;--homes-d:#007799;
   --brk:#ffffff;--brk-mute:#bbb5a8;
@@ -23,21 +24,21 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-
 #bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .bg-wash{position:fixed;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(ellipse at 15% 20%,rgba(0,220,255,.06) 0%,transparent 50%),
-             radial-gradient(ellipse at 85% 75%,rgba(255,220,80,.05) 0%,transparent 50%),
-             radial-gradient(ellipse at 50% 100%,rgba(201,168,76,.06) 0%,transparent 40%)}
+             radial-gradient(ellipse at 85% 75%,rgba(255,140,40,.06) 0%,transparent 50%),
+             radial-gradient(ellipse at 50% 100%,rgba(180,240,40,.05) 0%,transparent 40%)}
 .bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:linear-gradient(rgba(255,220,80,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,220,80,.02) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(255,140,40,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,140,40,.02) 1px,transparent 1px);
   background-size:80px 80px}
 
 /* ═══ WATERMARK $ ═══ */
-.wm{position:fixed;pointer-events:none;z-index:1;font-family:'Playfair Display',serif;font-weight:900;color:rgba(201,168,76,.03)}
+.wm{position:fixed;pointer-events:none;z-index:1;font-family:'Playfair Display',serif;font-weight:900;color:rgba(255,140,40,.03)}
 .wm-tl{top:-8%;left:-2%;font-size:48vw;line-height:1}
 .wm-br{bottom:-12%;right:-4%;font-size:52vw;line-height:1;transform:rotate(12deg)}
 
-/* ═══ MONEY TREES ═══ */
+/* ═══ DECOR BOLTS ═══ */
 .deco-svg{position:fixed;pointer-events:none;z-index:1}
-.deco-tree-l{bottom:3%;left:1.5%;width:16vw;max-width:200px;opacity:.045}
-.deco-tree-r{top:8%;right:1%;width:14vw;max-width:180px;opacity:.035;transform:scaleX(-1)}
+.deco-bolt-l{bottom:3%;left:1.5%;width:14vw;max-width:170px;opacity:.06}
+.deco-bolt-r{top:8%;right:1%;width:12vw;max-width:150px;opacity:.05;transform:scaleX(-1)}
 
 .page-wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:18px 36px 28px;min-height:100vh}
 
@@ -69,8 +70,8 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-
 
 .campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 
-.page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(44px,6vw,82px);line-height:1;letter-spacing:-1px;margin-bottom:4px}
-.page-title .accent{background:linear-gradient(135deg,#8899aa,#ccd4dd,#ffffff,#ccd4dd,#99aabb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:brightness(1.1)}
+.page-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(40px,5.6vw,80px);line-height:1;letter-spacing:-1px;margin-bottom:4px}
+.page-title .accent{background:linear-gradient(110deg,#ff6a14,#ff9d2b,#ffd84d,#c6ff3a,#ff8a1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:brightness(1.12) drop-shadow(0 0 28px rgba(255,140,40,.35))}
 .page-sub{font-weight:500;font-size:14px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:2px}
 .page-sub em{font-style:italic;font-family:'Playfair Display',serif;color:var(--gold);letter-spacing:0;text-transform:none}
 
@@ -79,15 +80,15 @@ body{background:var(--bg);font-family:'Outfit',sans-serif;color:var(--text);min-
 @keyframes lp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.5)}}
 
 /* ═══ COUNTDOWN ═══ */
-.cd-wrap{text-align:center;margin-bottom:16px;width:100%;max-width:1440px;background:var(--panel);border:2px solid rgba(50,220,100,.18);border-radius:24px;padding:20px 36px;position:relative;overflow:hidden}
-.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,#44dd66,transparent)}
+.cd-wrap{text-align:center;margin-bottom:16px;width:100%;max-width:1440px;background:var(--panel);border:2px solid rgba(160,240,40,.2);border-radius:24px;padding:20px 36px;position:relative;overflow:hidden}
+.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,#c6ff3a,transparent)}
 .cd-label{font-weight:600;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .cd-blocks{display:flex;align-items:center;justify-content:center;gap:12px}
-.cd-block{background:rgba(50,220,100,.05);border:2px solid rgba(50,220,100,.18);border-radius:16px;padding:10px 0;flex:1;max-width:200px;text-align:center;position:relative;overflow:hidden;transition:all .5s}
-.cd-block::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,#44dd66,transparent);opacity:.6}
-.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8.5vw,115px);letter-spacing:4px;line-height:1;color:#55ee77;text-shadow:0 0 20px rgba(50,230,100,.8),0 0 50px rgba(50,230,100,.5),0 0 100px rgba(50,230,100,.25)}
+.cd-block{background:rgba(160,240,40,.05);border:2px solid rgba(160,240,40,.2);border-radius:16px;padding:10px 0;flex:1;max-width:200px;text-align:center;position:relative;overflow:hidden;transition:all .5s}
+.cd-block::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,#c6ff3a,transparent);opacity:.6}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,8.5vw,115px);letter-spacing:4px;line-height:1;color:#c6ff3a;text-shadow:0 0 20px rgba(160,240,40,.8),0 0 50px rgba(160,240,40,.5),0 0 100px rgba(160,240,40,.25)}
 .cd-unit{font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-top:2px}
-.cd-sep{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,56px);color:#44dd66;opacity:.5;padding-bottom:16px;flex-shrink:0}
+.cd-sep{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,56px);color:#c6ff3a;opacity:.5;padding-bottom:16px;flex-shrink:0}
 .cd-block.urgent{border-color:rgba(255,70,40,.4)}.cd-block.urgent::before{background:linear-gradient(90deg,transparent,#ff4422,transparent)}.cd-block.urgent .cd-num{color:#ff5533;text-shadow:0 0 20px rgba(255,70,40,.9),0 0 50px rgba(255,70,40,.6),0 0 100px rgba(255,70,40,.3)}
 
 /* ═══ GAUGE CARDS ═══ */
@@ -146,10 +147,10 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
 .total-box::before{content:'';position:absolute;top:0;left:8%;right:8%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .total-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
 .total-label{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;letter-spacing:2px;color:#fff}
-.total-amount{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;color:#fff;text-shadow:0 0 20px rgba(255,220,80,.4),0 0 50px rgba(255,220,80,.2)}
+.total-amount{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;color:#fff;text-shadow:0 0 20px rgba(255,140,40,.45),0 0 50px rgba(255,140,40,.22)}
 .total-goal-lbl{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:500}
 .total-track{height:34px;background:rgba(255,255,255,.05);border-radius:17px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.06)}
-.total-fill{height:100%;border-radius:17px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--homes),#fff);box-shadow:0 0 30px rgba(255,220,80,.5)}
+.total-fill{height:100%;border-radius:17px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#ff7a1a,#c6ff3a,var(--homes),#fff);box-shadow:0 0 30px rgba(255,140,40,.5)}
 .total-pct{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.95);z-index:2}
 .total-stats{display:flex;justify-content:space-between;margin-top:10px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .total-stats span{color:#fff;font-weight:800}
@@ -174,30 +175,13 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
 <div class="wm wm-tl">$</div>
 <div class="wm wm-br">$</div>
 
-<!-- Money Trees -->
-<svg class="deco-svg deco-tree-l" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M100 390 L100 160" stroke="#c9a84c" stroke-width="2.5"/>
-  <path d="M100 320 C70 290 40 280 25 290" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 280 C130 250 160 240 175 250" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 240 C70 210 40 200 30 210" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 200 C130 170 155 165 165 175" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <circle cx="25" cy="285" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="25" y="290" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <circle cx="175" cy="245" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="175" y="250" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <circle cx="30" cy="205" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="30" y="210" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <circle cx="165" cy="170" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="165" y="175" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <path d="M100 160 C100 160 70 120 50 100 C30 80 40 40 70 35 C85 32 95 50 100 70 C105 50 115 32 130 35 C160 40 170 80 150 100 C130 120 100 160 100 160Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
-  <circle cx="100" cy="60" r="12" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="100" y="65" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
+<!-- Decor Bolts -->
+<svg class="deco-svg deco-bolt-l" viewBox="0 0 200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M122 10 L52 215 L104 215 L70 410 L150 175 L96 175 Z" stroke="#ff7a1a" stroke-width="2.5" fill="rgba(255,122,26,.05)" stroke-linejoin="round"/>
+  <path d="M150 32 L122 120 L144 120 L122 210" stroke="#c6ff3a" stroke-width="1.4" fill="none" opacity=".7" stroke-linejoin="round"/>
 </svg>
-<svg class="deco-svg deco-tree-r" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M100 390 L100 160" stroke="#c9a84c" stroke-width="2.5"/>
-  <path d="M100 320 C70 290 40 280 25 290" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 280 C130 250 160 240 175 250" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 240 C70 210 40 200 30 210" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <path d="M100 200 C130 170 155 165 165 175" stroke="#77aa55" stroke-width="1.2" fill="none"/>
-  <circle cx="25" cy="285" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="25" y="290" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <circle cx="175" cy="245" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="175" y="250" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <circle cx="30" cy="205" r="14" stroke="#c9a84c" stroke-width="1" fill="none"/><text x="30" y="210" text-anchor="middle" font-family="serif" font-size="14" fill="#c9a84c">$</text>
-  <path d="M100 160 C100 160 70 120 50 100 C30 80 40 40 70 35 C85 32 95 50 100 70 C105 50 115 32 130 35 C160 40 170 80 150 100 C130 120 100 160 100 160Z" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+<svg class="deco-svg deco-bolt-r" viewBox="0 0 200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M122 10 L52 215 L104 215 L70 410 L150 175 L96 175 Z" stroke="#ff7a1a" stroke-width="2.5" fill="rgba(255,122,26,.04)" stroke-linejoin="round"/>
 </svg>
 
 <div class="page-wrap">
@@ -209,7 +193,7 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
     <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
     <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
     <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-    <div class="marquee-item"><span class="mi-dot"></span>Money May 2026</div>
+    <div class="marquee-item"><span class="mi-dot"></span>Juiced-Up June 2026</div>
     <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
     <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
     <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
@@ -218,7 +202,7 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
     <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
     <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
     <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-    <div class="marquee-item"><span class="mi-dot"></span>Money May 2026</div>
+    <div class="marquee-item"><span class="mi-dot"></span>Juiced-Up June 2026</div>
     <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
     <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
     <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
@@ -231,15 +215,15 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
     <div class="brand-sep"></div>
     <a class="brand-link brk-link" href="https://brkcty.com" target="_blank">brkcty.com</a>
   </div>
-  <div class="campaign-tag">💰 Leverage Companies · May 2026</div>
-  <div class="page-title"><span class="accent">Money May</span></div>
-  <div class="page-sub"><em>Make it rain</em> &nbsp;·&nbsp; $1,000,000 Goal Per Division</div>
+  <div class="campaign-tag">⚡ Leverage Companies · June 2026</div>
+  <div class="page-title"><span class="accent">Juiced-Up June</span></div>
+  <div class="page-sub"><em>Full throttle</em> &nbsp;·&nbsp; $1,000,000 Goal Per Division</div>
 </div>
 
 <div class="live-badge"><div class="live-dot"></div>&nbsp;Live · Coefficient + Salesforce</div>
 
 <div class="cd-wrap">
-  <div class="cd-label" id="cd-label">May Ends May 31, 2026</div>
+  <div class="cd-label" id="cd-label">June Ends June 30, 2026</div>
   <div class="cd-blocks">
     <div class="cd-block" id="cd-day-block"><div class="cd-num" id="cd-days">--</div><div class="cd-unit">Days</div></div>
     <div class="cd-sep">:</div>
@@ -256,13 +240,13 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
     <img class="card-logo" src="homes-logo.png" alt="LVG Homes">
     <div class="card-label">Leverage Homes</div>
     <a class="card-url" href="https://lvghomes.com" target="_blank">lvghomes.com</a>
-    <div class="card-sub">Total Net Revenue · May 2026</div>
+    <div class="card-sub">Total Net Revenue · June 2026</div>
     <div class="brand-ribbon">
       <div class="br-stat"><div class="br-stat-val">$400M+</div><div class="br-stat-lbl">Paid to Sellers</div></div>
       <div class="br-stat"><div class="br-stat-val">1,000+</div><div class="br-stat-lbl">Homes Bought</div></div>
       <div class="br-stat"><div class="br-stat-val">21 Days</div><div class="br-stat-lbl">Avg Close</div></div>
     </div>
-    <div class="goal-badge" id="homesBadge">💰 Goal Reached!</div>
+    <div class="goal-badge" id="homesBadge">⚡ Goal Reached!</div>
     <canvas class="speedo" id="c1" width="460" height="270"></canvas>
     <div class="readout"><div class="readout-val" id="h_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
     <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="h_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="h_bar"></div></div></div>
@@ -272,13 +256,13 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
     <img class="card-logo" src="brkcty-logo.png" alt="BrkCty">
     <div class="card-label">Brick City Capital</div>
     <a class="card-url" href="https://brkcty.com" target="_blank">brkcty.com</a>
-    <div class="card-sub">Frontend & Backend Revenue · May 2026</div>
+    <div class="card-sub">Frontend & Backend Revenue · June 2026</div>
     <div class="brand-ribbon">
       <div class="br-stat"><div class="br-stat-val">$800M+</div><div class="br-stat-lbl">Loans Closed</div></div>
       <div class="br-stat"><div class="br-stat-val">80%</div><div class="br-stat-lbl">Close Rate</div></div>
       <div class="br-stat"><div class="br-stat-val">77%</div><div class="br-stat-lbl">Repeat Clients</div></div>
     </div>
-    <div class="goal-badge" id="brkctyBadge">💰 Goal Reached!</div>
+    <div class="goal-badge" id="brkctyBadge">⚡ Goal Reached!</div>
     <canvas class="speedo" id="c2" width="460" height="270"></canvas>
     <div class="readout"><div class="readout-val" id="b_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
     <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="b_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="b_bar"></div></div></div>
@@ -324,7 +308,7 @@ canvas.speedo{width:100%;max-width:540px;height:auto;display:block}
 
 <script>
 const SHEET_ID='12FZJx0TZZ27B9eliR0HKrtDjGnx0lkQo8qwmnVk4xSI',GOAL=1000000;
-const COUNTDOWN_TARGET=new Date('2026-06-01T00:00:00'),MONTH_NAME='May';
+const COUNTDOWN_TARGET=new Date('2026-07-01T00:00:00'),MONTH_NAME='June';
 
 /* ═══ ANIMATED BG ═══ */
 (function(){
@@ -334,8 +318,8 @@ const COUNTDOWN_TARGET=new Date('2026-06-01T00:00:00'),MONTH_NAME='May';
   function r(a,b){return a+Math.random()*(b-a)}
   function mp(){
     const t=Math.random();
-    if(t<.5)return{k:'d',x:r(0,W),y:r(-20,H),vx:r(-.15,.15),vy:r(.2,.9),s:r(1,3.5),o:r(.03,.14),c:Math.random()<.5?'#ffd44f':'#ffee77',p:r(0,6.28),ps:r(.01,.03)};
-    if(t<.78)return{k:'p',x:r(0,W),y:r(-40,H),vx:r(-.3,.3),vy:r(.15,.55),s:r(6,15),rot:r(0,6.28),rs:r(-.012,.012),sw:r(.3,1.4),sws:r(.005,.018),swo:r(0,6.28),o:r(.03,.09),c:Math.random()<.5?'#c9a84c':Math.random()<.5?'#77aa55':'#ffaa44'};
+    if(t<.5)return{k:'d',x:r(0,W),y:r(-20,H),vx:r(-.15,.15),vy:r(.25,1.0),s:r(1,3.5),o:r(.04,.16),c:Math.random()<.5?'#ff9a3d':'#c6ff3a',p:r(0,6.28),ps:r(.01,.03)};
+    if(t<.78)return{k:'p',x:r(0,W),y:r(-40,H),vx:r(-.3,.3),vy:r(.18,.6),s:r(7,16),rot:r(0,6.28),rs:r(-.012,.012),sw:r(.3,1.4),sws:r(.005,.018),swo:r(0,6.28),o:r(.04,.11),c:Math.random()<.5?'#ff7a1a':Math.random()<.5?'#c6ff3a':'#ffcc33'};
     return{k:'$',x:r(0,W),y:r(-60,H),vx:r(-.1,.1),vy:r(.1,.4),s:r(14,32),rot:r(-.2,.2),rs:r(-.006,.006),o:r(.025,.07),p:r(0,6.28),ps:r(.008,.02)};
   }
   for(let i=0;i<N;i++){const p=mp();p.y=r(0,H);P.push(p)}
@@ -345,8 +329,8 @@ const COUNTDOWN_TARGET=new Date('2026-06-01T00:00:00'),MONTH_NAME='May';
     for(let i=0;i<P.length;i++){
       const p=P[i];
       if(p.k==='d'){p.x+=p.vx;p.y+=p.vy;p.p+=p.ps;const a=p.o*(.6+.4*Math.sin(p.p));ctx.globalAlpha=a;ctx.fillStyle=p.c;ctx.shadowColor=p.c;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);ctx.fill();ctx.shadowBlur=0}
-      else if(p.k==='p'){p.x+=p.vx+Math.sin(f*p.sws+p.swo)*p.sw*.3;p.y+=p.vy;p.rot+=p.rs;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.o;ctx.fillStyle=p.c;ctx.beginPath();ctx.moveTo(0,-p.s*.5);ctx.bezierCurveTo(p.s*.5,-p.s*.3,p.s*.4,p.s*.3,0,p.s*.5);ctx.bezierCurveTo(-p.s*.4,p.s*.3,-p.s*.5,-p.s*.3,0,-p.s*.5);ctx.fill();ctx.restore()}
-      else{p.x+=p.vx;p.y+=p.vy;p.rot+=p.rs;p.p+=p.ps;const a=p.o*(.5+.5*Math.sin(p.p));ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=a;ctx.fillStyle='#c9a84c';ctx.shadowColor='#c9a84c';ctx.shadowBlur=8;ctx.font=`700 ${p.s}px "Playfair Display",serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,0);ctx.shadowBlur=0;ctx.restore()}
+      else if(p.k==='p'){p.x+=p.vx+Math.sin(f*p.sws+p.swo)*p.sw*.3;p.y+=p.vy;p.rot+=p.rs;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=p.o;ctx.fillStyle=p.c;ctx.shadowColor=p.c;ctx.shadowBlur=5;const s=p.s;ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(-s*.45,s*.12);ctx.lineTo(-s*.05,s*.12);ctx.lineTo(-s*.18,s);ctx.lineTo(s*.5,-s*.18);ctx.lineTo(s*.1,-s*.18);ctx.closePath();ctx.fill();ctx.shadowBlur=0;ctx.restore()}
+      else{p.x+=p.vx;p.y+=p.vy;p.rot+=p.rs;p.p+=p.ps;const a=p.o*(.5+.5*Math.sin(p.p));ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=a;ctx.fillStyle='#ff8a2b';ctx.shadowColor='#ff8a2b';ctx.shadowBlur=8;ctx.font=`700 ${p.s}px "Playfair Display",serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,0);ctx.shadowBlur=0;ctx.restore()}
       ctx.globalAlpha=1;
       if(p.y>H+60||p.x<-60||p.x>W+60){const np=mp();np.y=r(-80,-10);np.x=r(0,W);P[i]=np}
     }
@@ -362,10 +346,10 @@ function drawSpeedo(id,pct,accent,glow,hub){
   x.save();x.clearRect(0,0,W,H);x.shadowBlur=0;x.shadowColor='transparent';x.globalAlpha=1;
   const cx=W/2,cy=H-18,R=H-48,D=Math.PI/180,S=200*D,SW=140*D,E=S+SW,nA=S+SW*Math.min(pct,1.02);
   x.beginPath();x.arc(cx,cy,R,S,E);x.strokeStyle='rgba(255,255,255,.08)';x.lineWidth=26;x.lineCap='round';x.stroke();
-  [{to:.25,c:'#1e3022'},{to:.5,c:'#2a4832'},{to:.75,c:'#366040'},{to:1,c:accent}].reduce((p,z)=>{const e=S+SW*z.to;x.beginPath();x.arc(cx,cy,R,p,e);x.strokeStyle=z.c;x.lineWidth=7;x.lineCap='butt';x.globalAlpha=.45;x.stroke();x.globalAlpha=1;return e},S);
+  [{to:.25,c:'#2a2018'},{to:.5,c:'#3a2c1c'},{to:.75,c:'#4a3a22'},{to:1,c:accent}].reduce((p,z)=>{const e=S+SW*z.to;x.beginPath();x.arc(cx,cy,R,p,e);x.strokeStyle=z.c;x.lineWidth=7;x.lineCap='butt';x.globalAlpha=.45;x.stroke();x.globalAlpha=1;return e},S);
   if(pct>0){x.beginPath();x.arc(cx,cy,R,S,nA);x.strokeStyle=accent;x.lineWidth=20;x.lineCap='round';x.shadowColor=glow;x.shadowBlur=40;x.stroke();x.shadowBlur=15;x.lineWidth=10;x.stroke();x.shadowBlur=0;x.shadowColor='transparent'}
-  for(let i=0;i<=10;i++){const a=S+SW*(i/10),on=(i/10)<=pct;x.beginPath();x.moveTo(cx+Math.cos(a)*(R-32),cy+Math.sin(a)*(R-32));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle=on?accent:'#334838';x.lineWidth=3;x.globalAlpha=on?1:.5;x.stroke();x.globalAlpha=1;const v=GOAL*i/10;x.fillStyle=on?accent:'#445848';x.globalAlpha=on?1:.45;x.font='700 13px "Outfit",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(v===0?'$0':v>=1e6?'$1M':'$'+(v/1e3)+'K',cx+Math.cos(a)*(R-50),cy+Math.sin(a)*(R-50));x.globalAlpha=1}
-  for(let i=0;i<=40;i++){if(i%4===0)continue;const a=S+SW*(i/40);x.beginPath();x.moveTo(cx+Math.cos(a)*(R-22),cy+Math.sin(a)*(R-22));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle='#223828';x.lineWidth=1;x.globalAlpha=.55;x.stroke();x.globalAlpha=1}
+  for(let i=0;i<=10;i++){const a=S+SW*(i/10),on=(i/10)<=pct;x.beginPath();x.moveTo(cx+Math.cos(a)*(R-32),cy+Math.sin(a)*(R-32));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle=on?accent:'#4a3a2a';x.lineWidth=3;x.globalAlpha=on?1:.5;x.stroke();x.globalAlpha=1;const v=GOAL*i/10;x.fillStyle=on?accent:'#5a4a36';x.globalAlpha=on?1:.45;x.font='700 13px "Outfit",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(v===0?'$0':v>=1e6?'$1M':'$'+(v/1e3)+'K',cx+Math.cos(a)*(R-50),cy+Math.sin(a)*(R-50));x.globalAlpha=1}
+  for(let i=0;i<=40;i++){if(i%4===0)continue;const a=S+SW*(i/40);x.beginPath();x.moveTo(cx+Math.cos(a)*(R-22),cy+Math.sin(a)*(R-22));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle='#3a2c1c';x.lineWidth=1;x.globalAlpha=.55;x.stroke();x.globalAlpha=1}
   const nL=R-30,nB=28,nW=6,tX=cx+Math.cos(nA)*nL,tY=cy+Math.sin(nA)*nL,tlX=cx-Math.cos(nA)*nB,tlY=cy-Math.sin(nA)*nB,pp=nA+Math.PI/2;
   x.shadowColor=glow;x.shadowBlur=30;x.beginPath();x.moveTo(tlX,tlY);x.lineTo(cx+Math.cos(pp)*nW,cy+Math.sin(pp)*nW);x.lineTo(tX,tY);x.lineTo(cx-Math.cos(pp)*nW,cy-Math.sin(pp)*nW);x.closePath();x.fillStyle='#fff';x.fill();
   x.beginPath();x.arc(tX,tY,5,0,6.28);x.fillStyle=accent;x.shadowBlur=30;x.fill();x.shadowBlur=0;x.shadowColor='transparent';
@@ -390,20 +374,20 @@ function updateLabels(hV,bV,tV){
   document.getElementById('h_pct').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_pct').textContent=(bP*100).toFixed(1)+'%';
   document.getElementById('h_bar').style.width=Math.min(hP*100,100)+'%';document.getElementById('b_bar').style.width=Math.min(bP*100,100)+'%';
   document.getElementById('h_raised').textContent=money(hV);document.getElementById('b_raised').textContent=money(bV);
-  document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'💰 Done';
-  document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'💰 Done';
+  document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'✅ Done';
+  document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'✅ Done';
   document.getElementById('h_comp').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_comp').textContent=(bP*100).toFixed(1)+'%';
   if(hV>=GOAL)document.getElementById('homesBadge').style.display='block';
   if(bV>=GOAL)document.getElementById('brkctyBadge').style.display='block';
   const CG=2e6,tP=Math.min(tV/CG,1);
   document.getElementById('total_val').textContent=money(tV);document.getElementById('total_bar').style.width=(tP*100)+'%';
   document.getElementById('total_pct').textContent=(tP*100).toFixed(1)+'%';document.getElementById('ts_homes').textContent=money(hV);
-  document.getElementById('ts_brkcty').textContent=money(bV);document.getElementById('ts_remain').textContent=(CG-tV)>0?money(CG-tV):'💰 Done';
+  document.getElementById('ts_brkcty').textContent=money(bV);document.getElementById('ts_remain').textContent=(CG-tV)>0?money(CG-tV):'✅ Done';
 }
 
 function updateCD(){
   const d=COUNTDOWN_TARGET-new Date();
-  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='💰 '+MONTH_NAME+' Complete!';return}
+  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='⚡ '+MONTH_NAME+' Complete!';return}
   const dy=Math.floor(d/864e5),hr=Math.floor((d%864e5)/36e5),mn=Math.floor((d%36e5)/6e4),sc=Math.floor((d%6e4)/1e3);
   document.getElementById('cd-days').textContent=String(dy).padStart(2,'0');document.getElementById('cd-hours').textContent=String(hr).padStart(2,'0');
   document.getElementById('cd-mins').textContent=String(mn).padStart(2,'0');document.getElementById('cd-secs').textContent=String(sc).padStart(2,'0');
