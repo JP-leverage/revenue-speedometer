@@ -250,7 +250,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="gauge-slot"><canvas class="speedo" id="c1" width="460" height="270"></canvas></div>
       <div class="readout"><div class="readout-val" id="h_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="h_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="h_bar"></div></div></div>
-      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="h_raised">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="h_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="h_comp">—</div></div></div>
+      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="h_Closed">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="h_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="h_comp">—</div></div></div>
     </div>
     <div class="gauge-card brkcty">
       <div class="card-head">
@@ -267,7 +267,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="gauge-slot"><canvas class="speedo" id="c2" width="460" height="270"></canvas></div>
       <div class="readout"><div class="readout-val" id="b_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="b_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="b_bar"></div></div></div>
-      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="b_raised">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="b_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="b_comp">—</div></div></div>
+      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="b_Closed">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="b_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="b_comp">—</div></div></div>
     </div>
   </div>
 
@@ -405,7 +405,7 @@ function updateLabels(hV,bV,tV){
   document.getElementById('h_val').textContent=money(hV);document.getElementById('b_val').textContent=money(bV);
   document.getElementById('h_pct').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_pct').textContent=(bP*100).toFixed(1)+'%';
   document.getElementById('h_bar').style.width=Math.min(hP*100,100)+'%';document.getElementById('b_bar').style.width=Math.min(bP*100,100)+'%';
-  document.getElementById('h_raised').textContent=money(hV);document.getElementById('b_raised').textContent=money(bV);
+  document.getElementById('h_Closed').textContent=money(hV);document.getElementById('b_Closed').textContent=money(bV);
   document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'✅ Done';
   document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'✅ Done';
   document.getElementById('h_comp').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_comp').textContent=(bP*100).toFixed(1)+'%';
