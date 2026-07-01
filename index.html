@@ -310,12 +310,22 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 const SHEET_ID='12FZJx0TZZ27B9eliR0HKrtDjGnx0lkQo8qwmnVk4xSI',GOAL=1000000;
 const COUNTDOWN_TARGET=new Date('2026-08-01T00:00:00'),MONTH_NAME='July';
 
-/* ═══ SCALE-TO-FIT — scales the 1920x1080 stage to fill any screen ═══ */
+/* ═══ SCALE-TO-FIT — scales the 1920x1080 stage to fill any screen, incl. fullscreen ═══ */
 function fitStage(){
-  const s=document.getElementById('stage'),sc=Math.min(innerWidth/1920,innerHeight/1080);
+  const s=document.getElementById('stage');if(!s)return;
+  const sc=Math.min(innerWidth/1920,innerHeight/1080);
   s.style.transform='translate(-50%,-50%) scale('+sc+')';
 }
-fitStage();addEventListener('resize',fitStage);
+let _fw=0,_fh=0;
+function fitCheck(){if(_fw!==innerWidth||_fh!==innerHeight){_fw=innerWidth;_fh=innerHeight;fitStage();}}
+fitStage();
+addEventListener('resize',fitStage);
+addEventListener('orientationchange',function(){fitStage();setTimeout(fitStage,250);});
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','msfullscreenchange'].forEach(function(ev){
+  document.addEventListener(ev,function(){fitStage();setTimeout(fitStage,100);setTimeout(fitStage,400);});
+});
+addEventListener('load',function(){setTimeout(fitStage,60);});
+setInterval(fitCheck,400);  /* bulletproof net: re-fits within 0.4s of ANY size change the events miss */
 
 /* ═══ ATMOSPHERE — confetti, coins, sparkles (tuned for a bright field) ═══ */
 (function(){
