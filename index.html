@@ -1,17 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jack Pot July — Leverage Companies</title>
+<title>All In August — Leverage Companies</title>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Bright ivory field — non-white so the white-screen watchdog stays valid */
   --bg:#f2ecdb;--panel:#ffffff;--panel-2:#fbf8f0;
   --ink:#14140f;--ink-soft:#3d4a3a;--muted:#7b8168;--line:rgba(20,24,16,.13);
-  /* Casino felt — emerald + gold, deep so they punch through projector bloom */
-  --emerald:#0b7a4d;--emerald-d:#075a39;--emerald-b:#12a869;
+  /* Card-room felt — crimson + gold, deep so they punch through projector bloom */
+  --felt:#b0141c;--felt-d:#84070d;--felt-b:#e23a42;
   --gold:#b57d0a;--gold-b:#e7a91d;--gold-d:#8a5d06;
   /* Brand colors, deepened for a bright screen */
   --homes:#0089a8;--homes-d:#00697f;--homes-b:#00b6d9;
@@ -24,15 +25,15 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 /* ═══ ATMOSPHERE (full viewport, fills the whole screen behind the stage) ═══ */
 #bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .bg-wash{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse at 18% 15%,rgba(18,168,105,.15) 0%,transparent 46%),
+  background:radial-gradient(ellipse at 18% 15%,rgba(176,20,28,.15) 0%,transparent 46%),
              radial-gradient(ellipse at 82% 84%,rgba(231,169,29,.14) 0%,transparent 46%),
-             radial-gradient(ellipse at 50% 108%,rgba(11,122,77,.10) 0%,transparent 42%)}
+             radial-gradient(ellipse at 50% 108%,rgba(132,7,13,.11) 0%,transparent 42%)}
 .bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;
   background-image:linear-gradient(rgba(20,24,16,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(20,24,16,.03) 1px,transparent 1px);
   background-size:84px 84px}
-.wm{position:fixed;pointer-events:none;z-index:1;font-family:'Alfa Slab One',serif}
-.wm-tl{top:-9%;left:-3%;font-size:46vw;line-height:1;color:rgba(181,125,10,.07)}
-.wm-br{bottom:-13%;right:-5%;font-size:50vw;line-height:1;transform:rotate(10deg);color:rgba(11,122,77,.06)}
+.wm{position:fixed;pointer-events:none;z-index:1;font-family:Georgia,'Times New Roman',serif}
+.wm-tl{top:-11%;left:-4%;font-size:44vw;line-height:1;color:rgba(20,20,15,.055)}
+.wm-br{bottom:-15%;right:-6%;font-size:48vw;line-height:1;transform:rotate(10deg);color:rgba(176,20,28,.06)}
 .deco-svg{position:fixed;pointer-events:none;z-index:1}
 .deco-burst-r{top:6%;right:1.5%;width:13vw;max-width:190px;opacity:.11}
 .deco-coins-l{bottom:3%;left:1.5%;width:13vw;max-width:180px;opacity:.12}
@@ -51,7 +52,7 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 .marquee-item .mi-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .marquee-top .mi-dot{background:var(--gold)}
 .marquee-top .marquee-item{color:var(--gold-d)}
-.marquee-top .mi-val{color:var(--emerald)}
+.marquee-top .mi-val{color:var(--felt)}
 .marquee-bot .mi-dot{background:var(--gold)}
 .marquee-bot .marquee-item{color:var(--ink-soft)}
 .marquee-bot .mi-val-h{color:var(--homes)}
@@ -64,19 +65,19 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 .brand-link.homes-link{color:var(--homes-d);border:1.5px solid rgba(0,137,168,.4)}
 .brand-link.brk-link{color:var(--brk-d);border:1.5px solid rgba(69,77,88,.4)}
 .brand-sep{width:1px;height:15px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
-.campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--emerald-d);margin-bottom:4px}
+.campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--felt-d);margin-bottom:4px}
 .page-title{font-family:'Alfa Slab One',serif;font-size:60px;line-height:.98;letter-spacing:0}
-.page-title .accent{background:linear-gradient(100deg,#e7a91d,#c8900f,#0b7a4d,#12a869);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 5px rgba(20,24,16,.20))}
+.page-title .accent{background:linear-gradient(100deg,#e23a42,#b0141c,#b57d0a,#e7a91d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 5px rgba(20,24,16,.20))}
 .page-sub{font-weight:500;font-size:13px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px}
-.page-sub em{font-style:normal;font-family:'Alfa Slab One',serif;font-size:14px;color:var(--emerald);letter-spacing:.5px;text-transform:none}
+.page-sub em{font-style:normal;font-family:'Alfa Slab One',serif;font-size:14px;color:var(--felt);letter-spacing:.5px;text-transform:none}
 
-.live-badge{flex:0 0 auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(11,122,77,.13);border:1.5px solid rgba(11,122,77,.42);border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--emerald-d);text-transform:uppercase;margin-top:2px}
-.live-dot{width:8px;height:8px;border-radius:50%;background:var(--emerald-b);box-shadow:0 0 0 3px rgba(11,122,77,.2);animation:lp 2s ease-in-out infinite}
+.live-badge{flex:0 0 auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(11,122,77,.13);border:1.5px solid rgba(11,122,77,.42);border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--felt-d);text-transform:uppercase;margin-top:2px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--felt-b);box-shadow:0 0 0 3px rgba(11,122,77,.2);animation:lp 2s ease-in-out infinite}
 @keyframes lp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.55)}}
 
 /* ═══ COUNTDOWN ═══ */
 .cd-wrap{flex:0 0 auto;text-align:center;width:100%;background:var(--panel);border:2px solid rgba(181,125,10,.32);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(20,24,16,.10)}
-.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--emerald-b),var(--gold-b),transparent)}
+.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--felt-b),var(--gold-b),transparent)}
 .cd-label{font-weight:600;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .cd-blocks{display:flex;align-items:center;justify-content:center;gap:12px}
 .cd-block{background:rgba(181,125,10,.07);border:2px solid rgba(181,125,10,.28);border-radius:14px;padding:6px 0;flex:1;text-align:center;position:relative;overflow:hidden;transition:all .5s}
@@ -141,13 +142,13 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 
 /* ═══ COMBINED TOTAL ═══ */
 .total-box{flex:0 0 auto;width:100%;background:var(--panel);border:2px solid rgba(181,125,10,.32);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(20,24,16,.11)}
-.total-box::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--emerald-b),var(--gold-b),transparent)}
+.total-box::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--felt-b),var(--gold-b),transparent)}
 .total-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
 .total-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:.3px;color:var(--ink)}
 .total-amount{font-family:'Anton',sans-serif;font-size:40px;letter-spacing:1px;color:var(--gold-d)}
 .total-goal-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:600}
 .total-track{height:30px;background:rgba(20,24,16,.07);border-radius:15px;overflow:hidden;position:relative;border:1px solid var(--line)}
-.total-fill{height:100%;border-radius:15px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#0b7a4d,#12a869,#e7a91d,#c8900f)}
+.total-fill{height:100%;border-radius:15px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#b0141c,#e23a42,#e7a91d,#b57d0a)}
 .total-pct{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.5px;color:#14140f;text-shadow:0 1px 2px rgba(255,255,255,.55);z-index:2}
 .total-stats{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .total-stats span{color:var(--ink);font-weight:700}
@@ -157,7 +158,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 .footer-brand-name{font-weight:600;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
 .footer-div{color:var(--gold);opacity:.7;font-size:12px}
 .footer{font-size:11px;color:var(--muted);letter-spacing:2px;font-weight:500}
-.footer span{color:var(--emerald-d)}
+.footer span{color:var(--felt-d)}
 </style>
 </head>
 <body>
@@ -165,24 +166,21 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 <canvas id="bgCanvas"></canvas>
 <div class="bg-wash"></div>
 <div class="bg-grid"></div>
-<div class="wm wm-tl">$</div>
-<div class="wm wm-br">$</div>
+<div class="wm wm-tl">&spades;</div>
+<div class="wm wm-br">&diams;</div>
 
-<!-- emerald starburst + gold coin stack -->
-<svg class="deco-svg deco-burst-r" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#0b7a4d" stroke-width="5" stroke-linecap="round">
-    <line x1="110" y1="110" x2="110" y2="18"/><line x1="110" y1="110" x2="110" y2="202"/>
-    <line x1="110" y1="110" x2="18" y2="110"/><line x1="110" y1="110" x2="202" y2="110"/>
-    <line x1="110" y1="110" x2="175" y2="45"/><line x1="110" y1="110" x2="45" y2="45"/>
-    <line x1="110" y1="110" x2="175" y2="175"/><line x1="110" y1="110" x2="45" y2="175"/>
-  </g>
-  <circle cx="110" cy="110" r="34" fill="none" stroke="#b57d0a" stroke-width="5"/>
+<!-- big spade + poker-chip stack -->
+<svg class="deco-svg deco-burst-r" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 10 C50 10 20 38 20 58 C20 72 32 79 42 74 C40 84 34 89 29 91 L71 91 C66 89 60 84 58 74 C68 79 80 72 80 58 C80 38 50 10 50 10 Z" fill="#84070d"/>
 </svg>
-<svg class="deco-svg deco-coins-l" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="100" cy="128" rx="72" ry="26" fill="#b57d0a"/>
-  <ellipse cx="100" cy="96" rx="72" ry="26" fill="#d59a12"/>
-  <ellipse cx="100" cy="64" rx="72" ry="26" fill="#e7a91d"/>
-  <text x="100" y="75" font-family="Anton, sans-serif" font-size="34" fill="#8a5d06" text-anchor="middle">$</text>
+<svg class="deco-svg deco-coins-l" viewBox="0 0 200 176" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#fff" stroke-width="3">
+    <ellipse cx="100" cy="134" rx="72" ry="26" fill="#84070d"/>
+    <ellipse cx="100" cy="100" rx="72" ry="26" fill="#b57d0a"/>
+    <ellipse cx="100" cy="66" rx="72" ry="26" fill="#b0141c"/>
+  </g>
+  <circle cx="100" cy="66" r="17" fill="none" stroke="#fff" stroke-width="3"/>
+  <text x="100" y="75" font-family="Georgia, serif" font-size="26" fill="#fff" text-anchor="middle">&spades;</text>
 </svg>
 
 <div id="stage">
@@ -193,7 +191,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
       <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
       <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Jack Pot July 2026</div>
+      <div class="marquee-item"><span class="mi-dot"></span>All In August 2026</div>
       <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
       <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
       <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
@@ -201,7 +199,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
       <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
       <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Jack Pot July 2026</div>
+      <div class="marquee-item"><span class="mi-dot"></span>All In August 2026</div>
       <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
       <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
       <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
@@ -214,15 +212,15 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="brand-sep"></div>
       <a class="brand-link brk-link" href="https://brkcty.com" target="_blank">brkcty.com</a>
     </div>
-    <div class="campaign-tag">🎰 Leverage Companies · July 2026</div>
-    <div class="page-title"><span class="accent">Jack Pot July</span></div>
-    <div class="page-sub"><em>Hit the jackpot</em> &nbsp;·&nbsp; $1,000,000 Goal Per Division</div>
+    <div class="campaign-tag">🃏 Leverage Companies · August 2026</div>
+    <div class="page-title"><span class="accent">All In August</span></div>
+    <div class="page-sub"><em>Push all the chips in</em> &nbsp;·&nbsp; $1,000,000 Goal Per Division</div>
   </div>
 
   <div class="live-badge"><div class="live-dot"></div>&nbsp;Live · Coefficient + Salesforce</div>
 
   <div class="cd-wrap">
-    <div class="cd-label" id="cd-label">July Ends July 31, 2026</div>
+    <div class="cd-label" id="cd-label">August Ends August 31, 2026</div>
     <div class="cd-blocks">
       <div class="cd-block" id="cd-day-block"><div class="cd-num" id="cd-days">--</div><div class="cd-unit">Days</div></div>
       <div class="cd-sep">:</div>
@@ -240,13 +238,13 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
         <img class="card-logo" src="homes-logo.png" alt="LVG Homes">
         <div class="card-title-wrap"><div class="card-label">Leverage Homes</div><a class="card-url" href="https://lvghomes.com" target="_blank">lvghomes.com</a></div>
       </div>
-      <div class="card-sub">Total Net Revenue · July 2026</div>
+      <div class="card-sub">Total Net Revenue · August 2026</div>
       <div class="brand-ribbon">
         <div class="br-stat"><div class="br-stat-val">$400M+</div><div class="br-stat-lbl">Paid to Sellers</div></div>
         <div class="br-stat"><div class="br-stat-val">1,000+</div><div class="br-stat-lbl">Homes Bought</div></div>
         <div class="br-stat"><div class="br-stat-val">21 Days</div><div class="br-stat-lbl">Avg Close</div></div>
       </div>
-      <div class="goal-badge" id="homesBadge">💰 Jackpot!</div>
+      <div class="goal-badge" id="homesBadge">🃏 All In!</div>
       <div class="gauge-slot"><canvas class="speedo" id="c1" width="460" height="270"></canvas></div>
       <div class="readout"><div class="readout-val" id="h_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="h_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="h_bar"></div></div></div>
@@ -257,13 +255,13 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
         <img class="card-logo" src="brkcty-logo.png" alt="BrkCty">
         <div class="card-title-wrap"><div class="card-label">Brick City Capital</div><a class="card-url" href="https://brkcty.com" target="_blank">brkcty.com</a></div>
       </div>
-      <div class="card-sub">Frontend & Backend Revenue · July 2026</div>
+      <div class="card-sub">Frontend & Backend Revenue · August 2026</div>
       <div class="brand-ribbon">
         <div class="br-stat"><div class="br-stat-val">$800M+</div><div class="br-stat-lbl">Loans Closed</div></div>
         <div class="br-stat"><div class="br-stat-val">80%</div><div class="br-stat-lbl">Close Rate</div></div>
         <div class="br-stat"><div class="br-stat-val">77%</div><div class="br-stat-lbl">Repeat Clients</div></div>
       </div>
-      <div class="goal-badge" id="brkctyBadge">💰 Jackpot!</div>
+      <div class="goal-badge" id="brkctyBadge">🃏 All In!</div>
       <div class="gauge-slot"><canvas class="speedo" id="c2" width="460" height="270"></canvas></div>
       <div class="readout"><div class="readout-val" id="b_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="b_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="b_bar"></div></div></div>
@@ -286,7 +284,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-b">Brick City Capital</span></div>
       <div class="marquee-item">DSCR Loans · Fast Approvals · Nationwide</div>
       <div class="marquee-item"><span class="mi-val-b">1,000+</span> Investors Funded</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Hit the Jackpot</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Go All In</div>
       <div class="marquee-item">Quick Closing · No Red Tape · Creative Financing</div>
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-h">Leverage Homes</span></div>
       <div class="marquee-item">Cash Offers · No Fees · Close in 14 Days</div>
@@ -294,7 +292,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-b">Brick City Capital</span></div>
       <div class="marquee-item">DSCR Loans · Fast Approvals · Nationwide</div>
       <div class="marquee-item"><span class="mi-val-b">1,000+</span> Investors Funded</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Hit the Jackpot</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Go All In</div>
       <div class="marquee-item">Quick Closing · No Red Tape · Creative Financing</div>
     </div>
   </div>
@@ -308,7 +306,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 
 <script>
 const SHEET_ID='12FZJx0TZZ27B9eliR0HKrtDjGnx0lkQo8qwmnVk4xSI',GOAL=1000000;
-const COUNTDOWN_TARGET=new Date('2026-08-01T00:00:00'),MONTH_NAME='July';
+const COUNTDOWN_TARGET=new Date('2026-09-01T00:00:00'),MONTH_NAME='August';
 
 /* ═══ SCALE-TO-FIT — scales the 1920x1080 stage to fill any screen, incl. fullscreen ═══ */
 function fitStage(){
@@ -331,13 +329,15 @@ setInterval(fitCheck,400);  /* bulletproof net: re-fits within 0.4s of ANY size 
 (function(){
   const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');let W,H;
   function resize(){W=c.width=innerWidth;H=c.height=innerHeight}resize();addEventListener('resize',resize);
-  const P=[],N=82,CONF=['#0b7a4d','#12a869','#b57d0a','#e7a91d','#0089a8','#454d58'];
+  const P=[],N=82,CONF=['#b0141c','#e23a42','#b57d0a','#e7a91d','#0089a8','#454d58'];
+  const CHIP=['#b0141c','#84070d','#b57d0a','#1c2a4a'],SUITS=['\u2660','\u2665','\u2666','\u2663'];
   function r(a,b){return a+Math.random()*(b-a)}
   function mp(){
     const t=Math.random();
-    if(t<.60)return{k:'c',x:r(0,W),y:r(-40,H),vx:r(-.5,.5),vy:r(.6,1.7),w:r(6,12),h:r(11,20),rot:r(0,6.28),rs:r(-.06,.06),sw:r(.4,1.4),sws:r(.008,.02),swo:r(0,6.28),o:r(.55,.85),col:CONF[Math.floor(Math.random()*CONF.length)]};
-    if(t<.84)return{k:'o',x:r(0,W),y:r(-60,H),vx:r(-.25,.25),vy:r(.4,1.1),s:r(9,17),flip:r(0,6.28),fs:r(.03,.07),o:r(.6,.9)};
-    return{k:'s',x:r(0,W),y:r(-40,H),vx:r(-.2,.2),vy:r(.3,.9),s:r(6,13),rot:r(0,6.28),rs:r(-.02,.02),p:r(0,6.28),ps:r(.02,.05),o:r(.5,.85)};
+    if(t<.56)return{k:'c',x:r(0,W),y:r(-40,H),vx:r(-.5,.5),vy:r(.6,1.7),w:r(6,12),h:r(11,20),rot:r(0,6.28),rs:r(-.06,.06),sw:r(.4,1.4),sws:r(.008,.02),swo:r(0,6.28),o:r(.55,.85),col:CONF[Math.floor(Math.random()*CONF.length)]};
+    if(t<.82)return{k:'o',x:r(0,W),y:r(-60,H),vx:r(-.25,.25),vy:r(.4,1.1),s:r(9,17),flip:r(0,6.28),fs:r(.03,.07),o:r(.6,.9),chip:CHIP[Math.floor(Math.random()*CHIP.length)]};
+    const si=Math.floor(Math.random()*4);
+    return{k:'s',x:r(0,W),y:r(-40,H),vx:r(-.2,.2),vy:r(.3,.9),s:r(7,14),rot:r(-.5,.5),rs:r(-.012,.012),p:r(0,6.28),ps:r(.02,.05),o:r(.5,.85),suit:SUITS[si],scol:(si===1||si===2)?'#c81622':'#14140f'};
   }
   for(let i=0;i<N;i++){const p=mp();p.y=r(0,H);P.push(p)}
   let f=0;
@@ -353,15 +353,18 @@ setInterval(fitCheck,400);  /* bulletproof net: re-fits within 0.4s of ANY size 
         p.flip+=p.fs;p.x+=p.vx;p.y+=p.vy;
         const rx=Math.max(2,p.s*Math.abs(Math.cos(p.flip)));
         ctx.save();ctx.translate(p.x,p.y);ctx.globalAlpha=p.o;
-        ctx.beginPath();ctx.ellipse(0,0,rx,p.s,0,0,6.28);ctx.fillStyle='#d59a12';ctx.fill();
-        ctx.beginPath();ctx.ellipse(0,0,rx*.68,p.s*.68,0,0,6.28);ctx.fillStyle='#f5c93a';ctx.fill();
-        if(rx>p.s*.5){ctx.fillStyle='#8a5d06';ctx.font=`700 ${Math.round(p.s)}px "Space Grotesk",sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,1)}
+        ctx.beginPath();ctx.ellipse(0,0,rx,p.s,0,0,6.28);ctx.fillStyle=p.chip;ctx.fill();
+        ctx.lineWidth=Math.max(1,p.s*.16);ctx.strokeStyle='rgba(255,255,255,.9)';
+        ctx.beginPath();ctx.ellipse(0,0,rx*.82,p.s*.82,0,0,6.28);ctx.stroke();
+        ctx.beginPath();ctx.ellipse(0,0,rx*.5,p.s*.5,0,0,6.28);ctx.fillStyle='rgba(255,255,255,.85)';ctx.fill();
+        ctx.beginPath();ctx.ellipse(0,0,rx*.34,p.s*.34,0,0,6.28);ctx.fillStyle=p.chip;ctx.fill();
         ctx.restore();
       } else {
         p.rot+=p.rs;p.p+=p.ps;p.x+=p.vx;p.y+=p.vy;
-        const a=p.o*(.5+.5*Math.sin(p.p)),s=p.s;
-        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=a;ctx.fillStyle='#e7a91d';
-        ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(s*.22,-s*.22);ctx.lineTo(s,0);ctx.lineTo(s*.22,s*.22);ctx.lineTo(0,s);ctx.lineTo(-s*.22,s*.22);ctx.lineTo(-s,0);ctx.lineTo(-s*.22,-s*.22);ctx.closePath();ctx.fill();ctx.restore();
+        const a=p.o*(.5+.5*Math.sin(p.p));
+        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=a;
+        ctx.fillStyle=p.scol;ctx.font=`${Math.round(p.s*2.4)}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(p.suit,0,0);ctx.restore();
       }
       ctx.globalAlpha=1;
       if(p.y>H+70||p.x<-70||p.x>W+70){const np=mp();np.y=r(-90,-10);np.x=r(0,W);P[i]=np}
@@ -419,7 +422,7 @@ function updateLabels(hV,bV,tV){
 
 function updateCD(){
   const d=COUNTDOWN_TARGET-new Date();
-  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='💰 '+MONTH_NAME+' Complete!';return}
+  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='🃏 '+MONTH_NAME+' Complete!';return}
   const dy=Math.floor(d/864e5),hr=Math.floor((d%864e5)/36e5),mn=Math.floor((d%36e5)/6e4),sc=Math.floor((d%6e4)/1e3);
   document.getElementById('cd-days').textContent=String(dy).padStart(2,'0');document.getElementById('cd-hours').textContent=String(hr).padStart(2,'0');
   document.getElementById('cd-mins').textContent=String(mn).padStart(2,'0');document.getElementById('cd-secs').textContent=String(sc).padStart(2,'0');
