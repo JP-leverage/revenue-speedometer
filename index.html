@@ -1,22 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>September Stacks — Leverage Companies</title>
+<title>Overtime October — Leverage Companies</title>
 <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Pale money-green cream — non-white so the white-screen watchdog stays valid */
-  --bg:#edf2e4;--panel:#ffffff;--panel-2:#f6faf0;
-  --ink:#101a12;--ink-soft:#33452f;--muted:#6d7a63;--line:rgba(16,26,18,.13);
-  /* Vault money — banknote green + brass gold, deep so they punch through projector bloom */
-  --green:#157a45;--green-d:#0c5230;--green-b:#2fb069;
-  --gold:#b1810c;--gold-b:#e7b023;--gold-d:#87610a;
-  /* Brand colors, deepened for a bright screen */
-  --homes:#0089a8;--homes-d:#00697f;--homes-b:#00b6d9;
-  --brk:#454d58;--brk-d:#2b323c;--brk-b:#727d8e;
+  /* Haunted-night field — deep eggplant-charcoal, non-white so the white-screen watchdog stays valid */
+  --bg:#130c1f;--panel:#1e1430;--panel-2:#241836;
+  --ink:#fbead3;--ink-soft:#e9cfa8;--muted:#9a86b0;--line:rgba(251,234,211,.12);
+  /* Overtime / Halloween — pumpkin orange + harvest amber + witch purple, deep so they punch through projector bloom */
+  --orange:#ff7a1a;--orange-d:#d85e08;--orange-b:#ff9d3f;
+  --amber:#f0a500;--amber-d:#c98500;--amber-b:#ffc24a;
+  --purple:#8b4ff0;--purple-d:#6b2fd6;--purple-b:#a874ff;
+  /* Division brands — Homes cyan, BrkCty white/silver (bright for a dark field) */
+  --homes:#2dc9ef;--homes-d:#17a7cf;--homes-b:#64e0ff;
+  --brk:#cdd5e2;--brk-d:#aab4c6;--brk-b:#eef2f8;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
@@ -25,18 +25,21 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 /* ═══ ATMOSPHERE (full viewport, fills the whole screen behind the stage) ═══ */
 #bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
 .bg-wash{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse at 18% 15%,rgba(21,122,69,.15) 0%,transparent 46%),
-             radial-gradient(ellipse at 82% 84%,rgba(231,176,35,.14) 0%,transparent 46%),
-             radial-gradient(ellipse at 50% 108%,rgba(12,82,48,.11) 0%,transparent 42%)}
+  background:radial-gradient(ellipse at 18% 12%,rgba(255,122,26,.17) 0%,transparent 46%),
+             radial-gradient(ellipse at 84% 86%,rgba(139,79,240,.16) 0%,transparent 48%),
+             radial-gradient(ellipse at 50% 112%,rgba(240,165,0,.12) 0%,transparent 44%)}
 .bg-grid{position:fixed;inset:0;z-index:1;pointer-events:none;
-  background-image:linear-gradient(rgba(16,26,18,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(16,26,18,.03) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(251,234,211,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(251,234,211,.035) 1px,transparent 1px);
   background-size:84px 84px}
+/* full-moon glow, upper-right */
+.moon{position:fixed;top:4%;right:7%;width:15vw;max-width:220px;height:15vw;max-height:220px;border-radius:50%;z-index:1;pointer-events:none;
+  background:radial-gradient(circle at 38% 36%,rgba(255,236,196,.32),rgba(255,214,150,.12) 55%,transparent 72%)}
 .wm{position:fixed;pointer-events:none;z-index:1;font-family:Georgia,'Times New Roman',serif;font-weight:bold}
-.wm-tl{top:-11%;left:-4%;font-size:44vw;line-height:1;color:rgba(21,122,69,.06)}
-.wm-br{bottom:-15%;right:-6%;font-size:48vw;line-height:1;transform:rotate(10deg);color:rgba(177,129,12,.06)}
+.wm-tl{top:-12%;left:-3%;font-size:40vw;line-height:1;color:rgba(255,122,26,.05)}
+.wm-br{bottom:-16%;right:-5%;font-size:44vw;line-height:1;transform:rotate(9deg);color:rgba(139,79,240,.06)}
 .deco-svg{position:fixed;pointer-events:none;z-index:1}
-.deco-burst-r{top:6%;right:1.5%;width:12vw;max-width:180px;opacity:.12}
-.deco-coins-l{bottom:3%;left:1.5%;width:13vw;max-width:190px;opacity:.13}
+.deco-burst-r{top:5.5%;right:1.5%;width:13vw;max-width:195px;opacity:.16}
+.deco-coins-l{bottom:3%;left:1.5%;width:13vw;max-width:200px;opacity:.15}
 
 /* ═══ SCALE-TO-FIT STAGE (fixed design canvas, scaled by JS to fill any screen) ═══ */
 #stage{position:absolute;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center center;
@@ -50,10 +53,10 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 @keyframes marqueeScrollR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
 .marquee-item{display:inline-flex;align-items:center;gap:8px;padding:0 32px;white-space:nowrap;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
 .marquee-item .mi-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.marquee-top .mi-dot{background:var(--gold)}
-.marquee-top .marquee-item{color:var(--gold-d)}
-.marquee-top .mi-val{color:var(--green)}
-.marquee-bot .mi-dot{background:var(--gold)}
+.marquee-top .mi-dot{background:var(--orange)}
+.marquee-top .marquee-item{color:var(--amber-b)}
+.marquee-top .mi-val{color:var(--orange-b)}
+.marquee-bot .mi-dot{background:var(--purple)}
 .marquee-bot .marquee-item{color:var(--ink-soft)}
 .marquee-bot .mi-val-h{color:var(--homes)}
 .marquee-bot .mi-val-b{color:var(--brk)}
@@ -62,47 +65,47 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 .header{flex:0 0 auto;text-align:center}
 .brand-row{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:6px}
 .brand-link{font-weight:600;font-size:11px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;padding:4px 15px;border-radius:20px}
-.brand-link.homes-link{color:var(--homes-d);border:1.5px solid rgba(0,137,168,.4)}
-.brand-link.brk-link{color:var(--brk-d);border:1.5px solid rgba(69,77,88,.4)}
-.brand-sep{width:1px;height:15px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
-.campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--green-d);margin-bottom:4px}
+.brand-link.homes-link{color:var(--homes-b);border:1.5px solid rgba(45,201,239,.45)}
+.brand-link.brk-link{color:var(--brk-b);border:1.5px solid rgba(205,213,226,.4)}
+.brand-sep{width:1px;height:15px;background:linear-gradient(to bottom,transparent,var(--orange),transparent)}
+.campaign-tag{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--amber-b);margin-bottom:4px}
 .page-title{font-family:'Alfa Slab One',serif;font-size:60px;line-height:.98;letter-spacing:0}
-.page-title .accent{background:linear-gradient(100deg,#2fb069,#157a45,#b1810c,#e7b023);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 5px rgba(16,26,18,.20))}
+.page-title .accent{background:linear-gradient(100deg,#ff9d3f,#ff7a1a,#f0a500,#a874ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 3px 7px rgba(255,122,26,.35))}
 .page-sub{font-weight:500;font-size:13px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px}
-.page-sub em{font-style:normal;font-family:'Alfa Slab One',serif;font-size:14px;color:var(--green);letter-spacing:.5px;text-transform:none}
+.page-sub em{font-style:normal;font-family:'Alfa Slab One',serif;font-size:14px;color:var(--orange-b);letter-spacing:.5px;text-transform:none}
 
-.live-badge{flex:0 0 auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(21,122,69,.13);border:1.5px solid rgba(21,122,69,.42);border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--green-d);text-transform:uppercase;margin-top:2px}
-.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green-b);box-shadow:0 0 0 3px rgba(21,122,69,.2);animation:lp 2s ease-in-out infinite}
+.live-badge{flex:0 0 auto;align-self:center;display:inline-flex;align-items:center;gap:7px;background:rgba(255,122,26,.14);border:1.5px solid rgba(255,122,26,.45);border-radius:20px;padding:5px 16px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--orange-b);text-transform:uppercase;margin-top:2px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--orange-b);box-shadow:0 0 0 3px rgba(255,122,26,.22);animation:lp 2s ease-in-out infinite}
 @keyframes lp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.55)}}
 
 /* ═══ COUNTDOWN ═══ */
-.cd-wrap{flex:0 0 auto;text-align:center;width:100%;background:var(--panel);border:2px solid rgba(177,129,12,.32);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(16,26,18,.10)}
-.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--green-b),var(--gold-b),transparent)}
+.cd-wrap{flex:0 0 auto;text-align:center;width:100%;background:var(--panel);border:2px solid rgba(255,122,26,.34);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.cd-wrap::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--orange-b),var(--purple-b),transparent)}
 .cd-label{font-weight:600;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .cd-blocks{display:flex;align-items:center;justify-content:center;gap:12px}
-.cd-block{background:rgba(177,129,12,.07);border:2px solid rgba(177,129,12,.28);border-radius:14px;padding:6px 0;flex:1;text-align:center;position:relative;overflow:hidden;transition:all .5s}
-.cd-num{font-family:'Anton',sans-serif;font-size:82px;letter-spacing:2px;line-height:1;color:var(--gold);text-shadow:0 3px 9px rgba(16,26,18,.16)}
+.cd-block{background:rgba(255,122,26,.08);border:2px solid rgba(255,122,26,.3);border-radius:14px;padding:6px 0;flex:1;text-align:center;position:relative;overflow:hidden;transition:all .5s}
+.cd-num{font-family:'Anton',sans-serif;font-size:82px;letter-spacing:2px;line-height:1;color:var(--orange-b);text-shadow:0 0 18px rgba(255,122,26,.4),0 3px 9px rgba(0,0,0,.5)}
 .cd-unit{font-weight:600;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-top:-2px}
-.cd-sep{font-family:'Anton',sans-serif;font-size:48px;color:var(--gold);opacity:.55;padding-bottom:14px;flex-shrink:0}
-.cd-block.urgent{border-color:rgba(21,122,69,.55);background:rgba(21,122,69,.08)}
-.cd-block.urgent .cd-num{color:#157a45}
+.cd-sep{font-family:'Anton',sans-serif;font-size:48px;color:var(--orange-b);opacity:.55;padding-bottom:14px;flex-shrink:0}
+.cd-block.urgent{border-color:rgba(168,116,255,.6);background:rgba(139,79,240,.14)}
+.cd-block.urgent .cd-num{color:var(--purple-b);text-shadow:0 0 18px rgba(139,79,240,.5),0 3px 9px rgba(0,0,0,.5)}
 
 /* ═══ GAUGE CARDS ═══ */
 .gauges-row{flex:1 1 0;min-height:0;display:flex;gap:24px;width:100%}
-.gauge-card{flex:1;min-width:0;min-height:0;background:var(--panel);border-radius:22px;padding:12px 26px 10px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(16,26,18,.11)}
-.gauge-card.homes{border:2px solid rgba(0,137,168,.35)}
-.gauge-card.brkcty{border:2px solid rgba(69,77,88,.32)}
+.gauge-card{flex:1;min-width:0;min-height:0;background:var(--panel);border-radius:22px;padding:12px 26px 10px;display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.gauge-card.homes{border:2px solid rgba(45,201,239,.38)}
+.gauge-card.brkcty{border:2px solid rgba(205,213,226,.34)}
 .gauge-card::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px}
 .homes::before{background:linear-gradient(90deg,transparent,var(--homes),transparent)}
 .brkcty::before{background:linear-gradient(90deg,transparent,var(--brk),transparent)}
 
 .card-head{display:flex;align-items:center;justify-content:center;gap:12px}
-.card-logo{width:44px;height:44px;object-fit:contain;padding:6px;border-radius:10px;background:#1b1f25;flex-shrink:0}
+.card-logo{width:44px;height:44px;object-fit:contain;padding:6px;border-radius:10px;background:#120c1e;flex-shrink:0}
 .homes .card-logo{background:#ffffff;padding:5px}
 .card-title-wrap{text-align:left}
 .card-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;letter-spacing:.3px;line-height:1}
-.homes .card-label{color:var(--homes-d)}
-.brkcty .card-label{color:var(--brk-d)}
+.homes .card-label{color:var(--homes-b)}
+.brkcty .card-label{color:var(--brk-b)}
 .card-url{font-weight:500;font-size:10px;letter-spacing:2px;color:var(--muted);text-decoration:none}
 .card-sub{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:3px 0 4px;text-align:center;font-weight:600}
 
@@ -114,8 +117,8 @@ body{background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--ink
 .br-stat-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
 
 .goal-badge{display:none;padding:5px 20px;border-radius:20px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:5px;animation:bp 2s ease-in-out infinite}
-.homes .goal-badge{background:rgba(0,137,168,.14);border:2px solid var(--homes);color:var(--homes-d)}
-.brkcty .goal-badge{background:rgba(69,77,88,.12);border:2px solid var(--brk);color:var(--brk-d)}
+.homes .goal-badge{background:rgba(45,201,239,.16);border:2px solid var(--homes);color:var(--homes-b)}
+.brkcty .goal-badge{background:rgba(205,213,226,.14);border:2px solid var(--brk);color:var(--brk-b)}
 @keyframes bp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.97)}}
 
 .gauge-slot{flex:1 1 0;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;margin:4px 0}
@@ -123,15 +126,15 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 
 .readout{text-align:center;margin:2px 0 4px}
 .readout-val{font-family:'Anton',sans-serif;font-size:56px;letter-spacing:1px;line-height:1}
-.homes .readout-val{color:var(--homes);text-shadow:0 2px 5px rgba(0,105,127,.14)}
-.brkcty .readout-val{color:var(--brk-d);text-shadow:0 2px 5px rgba(43,50,60,.12)}
+.homes .readout-val{color:var(--homes);text-shadow:0 0 16px rgba(45,201,239,.3)}
+.brkcty .readout-val{color:var(--brk-b);text-shadow:0 0 16px rgba(205,213,226,.22)}
 .readout-sub{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:1px;font-weight:600}
 
 .bar-wrap{width:100%;margin-bottom:6px}
 .bar-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px;letter-spacing:2px;font-weight:600}
-.homes .bar-meta .bar-pct{color:var(--homes);font-weight:700}
-.brkcty .bar-meta .bar-pct{color:var(--brk-d);font-weight:700}
-.bar-track{height:11px;background:rgba(16,26,18,.08);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.homes .bar-meta .bar-pct{color:var(--homes-b);font-weight:700}
+.brkcty .bar-meta .bar-pct{color:var(--brk-b);font-weight:700}
+.bar-track{height:11px;background:rgba(251,234,211,.08);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
 .bar-fill{height:100%;border-radius:6px;width:0;transition:width 1.8s cubic-bezier(.4,0,.2,1)}
 .homes .bar-fill{background:linear-gradient(90deg,var(--homes-d),var(--homes-b))}
 .brkcty .bar-fill{background:linear-gradient(90deg,var(--brk-d),var(--brk-b))}
@@ -142,24 +145,24 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 .stat-val{font-size:16px;font-weight:700;color:var(--ink)}
 
 /* ═══ COMBINED TOTAL ═══ */
-.total-box{flex:0 0 auto;width:100%;background:var(--panel);border:2px solid rgba(177,129,12,.32);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(16,26,18,.11)}
-.total-box::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--green-b),var(--gold-b),transparent)}
+.total-box{flex:0 0 auto;width:100%;background:var(--panel);border:2px solid rgba(255,122,26,.34);border-radius:22px;padding:12px 32px;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.total-box::before{content:'';position:absolute;top:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--orange-b),var(--purple-b),transparent)}
 .total-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
 .total-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:.3px;color:var(--ink)}
-.total-amount{font-family:'Anton',sans-serif;font-size:40px;letter-spacing:1px;color:var(--gold-d)}
+.total-amount{font-family:'Anton',sans-serif;font-size:40px;letter-spacing:1px;color:var(--orange-b);text-shadow:0 0 16px rgba(255,122,26,.35)}
 .total-goal-lbl{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;font-weight:600}
-.total-track{height:30px;background:rgba(16,26,18,.07);border-radius:15px;overflow:hidden;position:relative;border:1px solid var(--line)}
-.total-fill{height:100%;border-radius:15px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#0c5230,#157a45,#e7b023,#b1810c)}
-.total-pct{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.5px;color:#101a12;text-shadow:0 1px 2px rgba(255,255,255,.55);z-index:2}
+.total-track{height:30px;background:rgba(251,234,211,.07);border-radius:15px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.total-fill{height:100%;border-radius:15px;width:0;transition:width 2s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#6b2fd6,#8b4ff0,#ff7a1a,#f0a500)}
+.total-pct{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.5px;color:#130c1f;text-shadow:0 1px 2px rgba(255,236,196,.5);z-index:2}
 .total-stats{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
 .total-stats span{color:var(--ink);font-weight:700}
 
 .footer-wrap{flex:0 0 auto;text-align:center;width:100%}
 .footer-brands{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:4px}
 .footer-brand-name{font-weight:600;font-size:11px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
-.footer-div{color:var(--gold);opacity:.75;font-size:12px}
+.footer-div{color:var(--orange);opacity:.8;font-size:12px}
 .footer{font-size:11px;color:var(--muted);letter-spacing:2px;font-weight:500}
-.footer span{color:var(--green-d)}
+.footer span{color:var(--amber-b)}
 </style>
 </head>
 <body>
@@ -167,31 +170,32 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 <canvas id="bgCanvas"></canvas>
 <div class="bg-wash"></div>
 <div class="bg-grid"></div>
-<div class="wm wm-tl">$</div>
-<div class="wm wm-br">$</div>
+<div class="moon"></div>
+<div class="wm wm-tl">OT</div>
+<div class="wm wm-br">31</div>
 
-<!-- gold coin + stacked banded cash -->
+<!-- jack-o'-lantern, top-right -->
 <svg class="deco-svg deco-burst-r" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="40" fill="#87610a"/>
-  <circle cx="50" cy="50" r="34" fill="#b1810c" stroke="#e7b023" stroke-width="2.5"/>
-  <circle cx="50" cy="50" r="28" fill="none" stroke="#e7b023" stroke-width="1.5" opacity="."/>
-  <text x="50" y="67" font-family="Georgia, serif" font-size="46" font-weight="bold" fill="#e7b023" text-anchor="middle">$</text>
+  <rect x="46" y="10" width="8" height="16" rx="3" fill="#4a7c2f"/>
+  <path d="M50 22 C72 22 86 36 86 58 C86 78 72 90 50 90 C28 90 14 78 14 58 C14 36 28 22 50 22 Z" fill="#ff7a1a" stroke="#d85e08" stroke-width="2.5"/>
+  <path d="M30 24 C34 44 34 70 30 88" fill="none" stroke="#d85e08" stroke-width="2" opacity=".6"/>
+  <path d="M70 24 C66 44 66 70 70 88" fill="none" stroke="#d85e08" stroke-width="2" opacity=".6"/>
+  <g fill="#2a140a">
+    <path d="M28 48 L44 54 L28 60 Z"/>
+    <path d="M72 48 L56 54 L72 60 Z"/>
+    <path d="M30 70 L40 68 L44 74 L50 68 L56 74 L60 68 L70 70 L62 80 L38 80 Z"/>
+  </g>
 </svg>
-<svg class="deco-svg deco-coins-l" viewBox="0 0 200 176" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#0c5230" stroke-width="2.5">
-    <rect x="24" y="106" width="152" height="42" rx="5" fill="#157a45"/>
-    <rect x="24" y="66" width="152" height="42" rx="5" fill="#2fb069"/>
-    <rect x="24" y="26" width="152" height="42" rx="5" fill="#157a45"/>
+<!-- football (overtime) + maple leaf, bottom-left -->
+<svg class="deco-svg deco-coins-l" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(118 118) rotate(-22)">
+    <path d="M0 -58 C34 -58 46 -26 46 0 C46 26 34 58 0 58 C-34 58 -46 26 -46 0 C-46 -26 -34 -58 0 -58 Z" fill="#8a3b12" stroke="#5a2409" stroke-width="3"/>
+    <line x1="0" y1="-30" x2="0" y2="30" stroke="#fbead3" stroke-width="4"/>
+    <g stroke="#fbead3" stroke-width="4"><line x1="-9" y1="-20" x2="9" y2="-20"/><line x1="-9" y1="-7" x2="9" y2="-7"/><line x1="-9" y1="6" x2="9" y2="6"/><line x1="-9" y1="19" x2="9" y2="19"/></g>
   </g>
-  <g fill="#b1810c" stroke="#87610a" stroke-width="1.5">
-    <rect x="86" y="106" width="28" height="42"/>
-    <rect x="86" y="66" width="28" height="42"/>
-    <rect x="86" y="26" width="28" height="42"/>
-  </g>
-  <g font-family="Georgia, serif" font-size="22" font-weight="bold" fill="#e7b023" text-anchor="middle">
-    <text x="100" y="134">$</text>
-    <text x="100" y="94">$</text>
-    <text x="100" y="54">$</text>
+  <g transform="translate(52 64) rotate(14)" fill="#f0a500" stroke="#c98500" stroke-width="2">
+    <path d="M0 -40 L5 -21 L17 -25 L12 -12 L27 -11 L16 -1 L23 12 L9 7 L6 25 L0 16 L-6 25 L-9 7 L-23 12 L-16 -1 L-27 -11 L-12 -12 L-17 -25 L-5 -21 Z"/>
+    <line x1="0" y1="16" x2="0" y2="34" stroke="#c98500" stroke-width="2.5"/>
   </g>
 </svg>
 
@@ -203,16 +207,16 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
       <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
       <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-      <div class="marquee-item"><span class="mi-dot"></span>September Stacks 2026</div>
-      <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Overtime October 2026</div>
+      <div class="marquee-item"><span class="mi-val">No Days Off</span> 🎃</div>
       <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
       <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
       <div class="marquee-item"><span class="mi-dot"></span>Leverage Companies</div>
       <div class="marquee-item"><span class="mi-val">$4B+</span> in Real Estate Transactions</div>
       <div class="marquee-item"><span class="mi-dot"></span>Newark, NJ HQ</div>
       <div class="marquee-item"><span class="mi-val">1,000+</span> Transactions Annually</div>
-      <div class="marquee-item"><span class="mi-dot"></span>September Stacks 2026</div>
-      <div class="marquee-item"><span class="mi-val">$2M</span> Combined Goal</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Overtime October 2026</div>
+      <div class="marquee-item"><span class="mi-val">No Days Off</span> 🎃</div>
       <div class="marquee-item"><span class="mi-dot"></span>Real Estate Private Equity</div>
       <div class="marquee-item"><span class="mi-val">300+</span> Units Managed</div>
     </div>
@@ -224,15 +228,15 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="brand-sep"></div>
       <a class="brand-link brk-link" href="https://brkcty.com" target="_blank">brkcty.com</a>
     </div>
-    <div class="campaign-tag">💵 Leverage Companies · September 2026</div>
-    <div class="page-title"><span class="accent">September Stacks</span></div>
-    <div class="page-sub"><em>Stack it high</em> &nbsp;·&nbsp; $1,000,000 Goal Per Division</div>
+    <div class="campaign-tag">🎃 Leverage Companies · October 2026</div>
+    <div class="page-title"><span class="accent">Overtime October</span></div>
+    <div class="page-sub"><em>Leave it all on the field</em> &nbsp;·&nbsp; Live Net Revenue</div>
   </div>
 
   <div class="live-badge"><div class="live-dot"></div>&nbsp;Live · Coefficient + Salesforce</div>
 
   <div class="cd-wrap">
-    <div class="cd-label" id="cd-label">September Ends September 30, 2026</div>
+    <div class="cd-label" id="cd-label">October Ends October 31, 2026</div>
     <div class="cd-blocks">
       <div class="cd-block" id="cd-day-block"><div class="cd-num" id="cd-days">--</div><div class="cd-unit">Days</div></div>
       <div class="cd-sep">:</div>
@@ -250,42 +254,42 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
         <img class="card-logo" src="homes-logo.png" alt="LVG Homes">
         <div class="card-title-wrap"><div class="card-label">Leverage Homes</div><a class="card-url" href="https://lvghomes.com" target="_blank">lvghomes.com</a></div>
       </div>
-      <div class="card-sub">Total Net Revenue · September 2026</div>
+      <div class="card-sub">Total Net Revenue · October 2026</div>
       <div class="brand-ribbon">
         <div class="br-stat"><div class="br-stat-val">$400M+</div><div class="br-stat-lbl">Paid to Sellers</div></div>
         <div class="br-stat"><div class="br-stat-val">1,000+</div><div class="br-stat-lbl">Homes Bought</div></div>
         <div class="br-stat"><div class="br-stat-val">21 Days</div><div class="br-stat-lbl">Avg Close</div></div>
       </div>
-      <div class="goal-badge" id="homesBadge">💵 Stacked!</div>
+      <div class="goal-badge" id="homesBadge">🏈 Overtime Win!</div>
       <div class="gauge-slot"><canvas class="speedo" id="c1" width="460" height="270"></canvas></div>
-      <div class="readout"><div class="readout-val" id="h_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
+      <div class="readout"><div class="readout-val" id="h_val">$0</div><div class="readout-sub">Net Revenue · Month to Date</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="h_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="h_bar"></div></div></div>
-      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="h_Closed">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="h_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="h_comp">—</div></div></div>
+      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="h_Closed">—</div></div><div class="stat"><div class="stat-lbl">Pace</div><div class="stat-val" id="h_remain">—</div></div><div class="stat"><div class="stat-lbl">Gauge</div><div class="stat-val" id="h_comp">—</div></div></div>
     </div>
     <div class="gauge-card brkcty">
       <div class="card-head">
         <img class="card-logo" src="brkcty-logo.png" alt="BrkCty">
         <div class="card-title-wrap"><div class="card-label">Brick City Capital</div><a class="card-url" href="https://brkcty.com" target="_blank">brkcty.com</a></div>
       </div>
-      <div class="card-sub">Frontend & Backend Revenue · September 2026</div>
+      <div class="card-sub">Frontend & Backend Revenue · October 2026</div>
       <div class="brand-ribbon">
         <div class="br-stat"><div class="br-stat-val">$800M+</div><div class="br-stat-lbl">Loans Closed</div></div>
         <div class="br-stat"><div class="br-stat-val">80%</div><div class="br-stat-lbl">Close Rate</div></div>
         <div class="br-stat"><div class="br-stat-val">77%</div><div class="br-stat-lbl">Repeat Clients</div></div>
       </div>
-      <div class="goal-badge" id="brkctyBadge">💵 Stacked!</div>
+      <div class="goal-badge" id="brkctyBadge">🏈 Overtime Win!</div>
       <div class="gauge-slot"><canvas class="speedo" id="c2" width="460" height="270"></canvas></div>
-      <div class="readout"><div class="readout-val" id="b_val">$0</div><div class="readout-sub">of $1,000,000 goal</div></div>
+      <div class="readout"><div class="readout-val" id="b_val">$0</div><div class="readout-sub">Net Revenue · Month to Date</div></div>
       <div class="bar-wrap"><div class="bar-meta"><span>Progress</span><span class="bar-pct" id="b_pct">0%</span></div><div class="bar-track"><div class="bar-fill" id="b_bar"></div></div></div>
-      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="b_Closed">—</div></div><div class="stat"><div class="stat-lbl">Remaining</div><div class="stat-val" id="b_remain">—</div></div><div class="stat"><div class="stat-lbl">Complete</div><div class="stat-val" id="b_comp">—</div></div></div>
+      <div class="stats"><div class="stat"><div class="stat-lbl">Closed</div><div class="stat-val" id="b_Closed">—</div></div><div class="stat"><div class="stat-lbl">Pace</div><div class="stat-val" id="b_remain">—</div></div><div class="stat"><div class="stat-lbl">Gauge</div><div class="stat-val" id="b_comp">—</div></div></div>
     </div>
   </div>
 
   <div class="total-box">
     <div class="total-header"><div class="total-label">Combined Revenue</div><div class="total-amount" id="total_val">$0</div></div>
-    <div class="total-goal-lbl">of $2,000,000 combined goal</div>
+    <div class="total-goal-lbl">Combined Net Revenue · October 2026</div>
     <div class="total-track"><div class="total-fill" id="total_bar"></div><div class="total-pct" id="total_pct">0%</div></div>
-    <div class="total-stats"><div>Homes: <span id="ts_homes">—</span></div><div>BrkCty: <span id="ts_brkcty">—</span></div><div>Remaining: <span id="ts_remain">—</span></div></div>
+    <div class="total-stats"><div>Homes: <span id="ts_homes">—</span></div><div>BrkCty: <span id="ts_brkcty">—</span></div><div>Combined: <span id="ts_remain">—</span></div></div>
   </div>
 
   <div class="marquee-track marquee-bot">
@@ -296,7 +300,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-b">Brick City Capital</span></div>
       <div class="marquee-item">DSCR Loans · Fast Approvals · Nationwide</div>
       <div class="marquee-item"><span class="mi-val-b">1,000+</span> Investors Funded</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Stack It High</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Push To Overtime 🏈</div>
       <div class="marquee-item">Quick Closing · No Red Tape · Creative Financing</div>
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-h">Leverage Homes</span></div>
       <div class="marquee-item">Cash Offers · No Fees · Close in 14 Days</div>
@@ -304,7 +308,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
       <div class="marquee-item"><span class="mi-dot"></span><span class="mi-val-b">Brick City Capital</span></div>
       <div class="marquee-item">DSCR Loans · Fast Approvals · Nationwide</div>
       <div class="marquee-item"><span class="mi-val-b">1,000+</span> Investors Funded</div>
-      <div class="marquee-item"><span class="mi-dot"></span>Stack It High</div>
+      <div class="marquee-item"><span class="mi-dot"></span>Push To Overtime 🏈</div>
       <div class="marquee-item">Quick Closing · No Red Tape · Creative Financing</div>
     </div>
   </div>
@@ -318,7 +322,7 @@ canvas.speedo{height:100%;width:auto;max-width:100%;display:block}
 
 <script>
 const SHEET_ID='12FZJx0TZZ27B9eliR0HKrtDjGnx0lkQo8qwmnVk4xSI',GOAL=1000000;
-const COUNTDOWN_TARGET=new Date('2026-10-01T00:00:00'),MONTH_NAME='September';
+const COUNTDOWN_TARGET=new Date('2026-11-01T00:00:00'),MONTH_NAME='October';
 
 /* ═══ SCALE-TO-FIT — scales the 1920x1080 stage to fill any screen, incl. fullscreen ═══ */
 function fitStage(){
@@ -337,18 +341,21 @@ addEventListener('orientationchange',function(){fitStage();setTimeout(fitStage,2
 addEventListener('load',function(){setTimeout(fitStage,60);});
 setInterval(fitCheck,400);  /* bulletproof net: re-fits within 0.4s of ANY size change the events miss */
 
-/* ═══ ATMOSPHERE — banknotes, gold coins, dollar-sign sparkles (tuned for a bright field) ═══ */
+/* ═══ ATMOSPHERE — falling autumn leaves, flitting bats, glowing embers (tuned for a dark field) ═══ */
 (function(){
   const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');let W,H;
   function resize(){W=c.width=innerWidth;H=c.height=innerHeight}resize();addEventListener('resize',resize);
-  const P=[],N=82,BILL=['#157a45','#2fb069','#0c5230','#1f8f52','#b1810c','#e7b023'];
-  const COIN=['#e7b023','#b1810c','#87610a','#d4af37'];
+  const P=[],N=84;
+  const LEAF=['#ff7a1a','#e0560a','#c23b0e','#f0a500','#b8860b','#8a3b12','#d2691e'];
+  const EMBER=['#ff9d3f','#ffc24a','#ff7a1a'];
+  /* normalized maple-leaf outline, pointing up */
+  const MAPLE=[[0,-1],[.12,-.52],[.42,-.62],[.30,-.30],[.68,-.28],[.40,-.02],[.58,.30],[.22,.18],[.16,.62],[0,.40],[-.16,.62],[-.22,.18],[-.58,.30],[-.40,-.02],[-.68,-.28],[-.30,-.30],[-.42,-.62],[-.12,-.52]];
   function r(a,b){return a+Math.random()*(b-a)}
   function mp(){
     const t=Math.random();
-    if(t<.56)return{k:'c',x:r(0,W),y:r(-40,H),vx:r(-.5,.5),vy:r(.6,1.7),w:r(12,22),h:r(6,11),rot:r(0,6.28),rs:r(-.05,.05),sw:r(.4,1.4),sws:r(.008,.02),swo:r(0,6.28),o:r(.5,.8),col:BILL[Math.floor(Math.random()*BILL.length)]};
-    if(t<.82)return{k:'o',x:r(0,W),y:r(-60,H),vx:r(-.25,.25),vy:r(.4,1.1),s:r(9,17),flip:r(0,6.28),fs:r(.03,.07),o:r(.6,.9),coin:COIN[Math.floor(Math.random()*COIN.length)]};
-    return{k:'s',x:r(0,W),y:r(-40,H),vx:r(-.2,.2),vy:r(.3,.9),s:r(7,14),rot:r(-.5,.5),rs:r(-.012,.012),p:r(0,6.28),ps:r(.02,.05),o:r(.5,.85),scol:(Math.random()<.5)?'#157a45':'#b1810c'};
+    if(t<.55)return{k:'l',x:r(0,W),y:r(-40,H),vx:r(-.5,.5),vy:r(.6,1.7),s:r(10,20),rot:r(0,6.28),rs:r(-.03,.03),sw:r(.5,1.6),sws:r(.008,.02),swo:r(0,6.28),o:r(.55,.85),col:LEAF[Math.floor(Math.random()*LEAF.length)]};
+    if(t<.80)return{k:'b',x:r(0,W),y:r(-60,H),vx:r(-.9,.9),vy:r(.3,.9),s:r(8,15),flap:r(0,6.28),fs:r(.14,.24),o:r(.4,.65)};
+    return{k:'e',x:r(0,W),y:r(-40,H),vx:r(-.25,.25),vy:r(.3,.9),s:r(1.6,3.4),p:r(0,6.28),ps:r(.03,.07),o:r(.5,.9),col:EMBER[Math.floor(Math.random()*EMBER.length)]};
   }
   for(let i=0;i<N;i++){const p=mp();p.y=r(0,H);P.push(p)}
   let f=0;
@@ -356,51 +363,61 @@ setInterval(fitCheck,400);  /* bulletproof net: re-fits within 0.4s of ANY size 
     ctx.clearRect(0,0,W,H);f++;
     for(let i=0;i<P.length;i++){
       const p=P[i];
-      if(p.k==='c'){ /* banknote — flat green bill with a gold band, tumbling */
+      if(p.k==='l'){ /* maple leaf, tumbling + swaying */
         p.rot+=p.rs;p.x+=p.vx+Math.sin(f*p.sws+p.swo)*p.sw*.3;p.y+=p.vy;
-        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.scale(Math.max(.18,Math.abs(Math.cos(f*p.sws+p.swo))),1);
-        ctx.globalAlpha=p.o;ctx.fillStyle=p.col;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-        ctx.fillStyle='rgba(231,176,35,.85)';ctx.fillRect(-p.w*.12,-p.h/2,p.w*.24,p.h);
+        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.scale(Math.max(.3,Math.abs(Math.cos(f*p.sws+p.swo))),1);
+        ctx.globalAlpha=p.o;ctx.fillStyle=p.col;
+        ctx.beginPath();
+        for(let j=0;j<MAPLE.length;j++){const px=MAPLE[j][0]*p.s,py=MAPLE[j][1]*p.s;if(j===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}
+        ctx.closePath();ctx.fill();
+        ctx.strokeStyle='rgba(42,20,10,.5)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(0,.4*p.s);ctx.lineTo(0,.85*p.s);ctx.stroke();
         ctx.restore();
-      } else if(p.k==='o'){ /* gold coin, flipping */
-        p.flip+=p.fs;p.x+=p.vx;p.y+=p.vy;
-        const rx=Math.max(2,p.s*Math.abs(Math.cos(p.flip)));
-        ctx.save();ctx.translate(p.x,p.y);ctx.globalAlpha=p.o;
-        ctx.beginPath();ctx.ellipse(0,0,rx,p.s,0,0,6.28);ctx.fillStyle=p.coin;ctx.fill();
-        ctx.lineWidth=Math.max(1,p.s*.16);ctx.strokeStyle='rgba(255,248,225,.9)';
-        ctx.beginPath();ctx.ellipse(0,0,rx*.82,p.s*.82,0,0,6.28);ctx.stroke();
-        if(rx>p.s*.4){ctx.globalAlpha=p.o;ctx.fillStyle='rgba(88,62,6,.9)';ctx.font=`bold ${Math.round(p.s*1.3)}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$',0,0);}
+      } else if(p.k==='b'){ /* bat silhouette, flapping across the night */
+        p.flap+=p.fs;p.x+=p.vx;p.y+=p.vy;
+        const wy=Math.sin(p.flap)*p.s*.5,s=p.s;
+        ctx.save();ctx.translate(p.x,p.y);ctx.globalAlpha=p.o;ctx.fillStyle='#4a3466';
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.quadraticCurveTo(-s*.5,-s*.3+wy,-s*1.1,wy*.6);
+        ctx.quadraticCurveTo(-s*.75,s*.1,-s*.85,s*.5+wy);
+        ctx.quadraticCurveTo(-s*.5,s*.2,-s*.25,s*.35);
+        ctx.quadraticCurveTo(0,s*.1,0,s*.42);
+        ctx.quadraticCurveTo(0,s*.1,s*.25,s*.35);
+        ctx.quadraticCurveTo(s*.5,s*.2,s*.85,s*.5+wy);
+        ctx.quadraticCurveTo(s*.75,s*.1,s*1.1,wy*.6);
+        ctx.quadraticCurveTo(s*.5,-s*.3+wy,0,0);
+        ctx.closePath();ctx.fill();
+        ctx.beginPath();ctx.ellipse(0,s*.05,s*.2,s*.28,0,0,6.28);ctx.fill();
         ctx.restore();
-      } else { /* dollar-sign sparkle */
-        p.rot+=p.rs;p.p+=p.ps;p.x+=p.vx;p.y+=p.vy;
-        const a=p.o*(.5+.5*Math.sin(p.p));
-        ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.globalAlpha=a;
-        ctx.fillStyle=p.scol;ctx.font=`bold ${Math.round(p.s*2.4)}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-        ctx.fillText('$',0,0);ctx.restore();
+      } else { /* glowing ember */
+        p.p+=p.ps;p.x+=p.vx;p.y+=p.vy;
+        const a=p.o*(.45+.55*Math.sin(p.p));
+        ctx.save();ctx.globalAlpha=a;ctx.fillStyle=p.col;ctx.shadowColor=p.col;ctx.shadowBlur=10;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,6.28);ctx.fill();ctx.restore();
       }
       ctx.globalAlpha=1;
-      if(p.y>H+70||p.x<-70||p.x>W+70){const np=mp();np.y=r(-90,-10);np.x=r(0,W);P[i]=np}
+      if(p.y>H+70||p.x<-80||p.x>W+80){const np=mp();np.y=r(-90,-10);np.x=r(0,W);P[i]=np}
     }
     requestAnimationFrame(anim);
   }
   anim();
 })();
 
-/* ═══ SPEEDO (light theme) ═══ */
+/* ═══ SPEEDO (dark theme) ═══ */
 function money(n){const a=Math.abs(n);if(a>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(a>=1e3)return'$'+Math.round(n).toLocaleString();return'$'+Math.round(n)}
 function drawSpeedo(id,pct,accent,glow,hub){
   const cv=document.getElementById(id),x=cv.getContext('2d'),W=cv.width,H=cv.height;
   x.save();x.clearRect(0,0,W,H);x.shadowBlur=0;x.shadowColor='transparent';x.globalAlpha=1;
   const cx=W/2,cy=H-18,R=H-48,D=Math.PI/180,S=200*D,SW=140*D,E=S+SW,nA=S+SW*Math.min(pct,1.02);
-  x.beginPath();x.arc(cx,cy,R,S,E);x.strokeStyle='rgba(16,26,18,.10)';x.lineWidth=26;x.lineCap='round';x.stroke();
-  [{to:.25,c:'#e3ecd5'},{to:.5,c:'#d7e6c6'},{to:.75,c:'#c9dbb2'},{to:1,c:accent}].reduce((p,z)=>{const e=S+SW*z.to;x.beginPath();x.arc(cx,cy,R,p,e);x.strokeStyle=z.c;x.lineWidth=7;x.lineCap='butt';x.globalAlpha=.55;x.stroke();x.globalAlpha=1;return e},S);
-  if(pct>0){x.beginPath();x.arc(cx,cy,R,S,nA);x.strokeStyle=accent;x.lineWidth=20;x.lineCap='round';x.shadowColor='rgba(16,26,18,.22)';x.shadowBlur=10;x.stroke();x.shadowBlur=0;x.shadowColor='transparent'}
-  for(let i=0;i<=10;i++){const a=S+SW*(i/10),on=(i/10)<=pct;x.beginPath();x.moveTo(cx+Math.cos(a)*(R-32),cy+Math.sin(a)*(R-32));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle=on?accent:'#b9c9a5';x.lineWidth=3;x.globalAlpha=on?1:.7;x.stroke();x.globalAlpha=1;const v=GOAL*i/10;x.fillStyle=on?accent:'#9aab84';x.globalAlpha=on?1:.85;x.font='700 13px "Space Grotesk",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(v===0?'$0':v>=1e6?'$1M':'$'+(v/1e3)+'K',cx+Math.cos(a)*(R-50),cy+Math.sin(a)*(R-50));x.globalAlpha=1}
-  for(let i=0;i<=40;i++){if(i%4===0)continue;const a=S+SW*(i/40);x.beginPath();x.moveTo(cx+Math.cos(a)*(R-22),cy+Math.sin(a)*(R-22));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle='#c8d6b4';x.lineWidth=1;x.globalAlpha=.7;x.stroke();x.globalAlpha=1}
+  x.beginPath();x.arc(cx,cy,R,S,E);x.strokeStyle='rgba(255,255,255,.08)';x.lineWidth=26;x.lineCap='round';x.stroke();
+  [{to:.25,c:'#2a2036'},{to:.5,c:'#4a3320'},{to:.75,c:'#7d4a15'},{to:1,c:accent}].reduce((p,z)=>{const e=S+SW*z.to;x.beginPath();x.arc(cx,cy,R,p,e);x.strokeStyle=z.c;x.lineWidth=7;x.lineCap='butt';x.globalAlpha=.6;x.stroke();x.globalAlpha=1;return e},S);
+  if(pct>0){x.beginPath();x.arc(cx,cy,R,S,nA);x.strokeStyle=accent;x.lineWidth=20;x.lineCap='round';x.shadowColor=glow;x.shadowBlur=14;x.stroke();x.shadowBlur=0;x.shadowColor='transparent'}
+  for(let i=0;i<=10;i++){const a=S+SW*(i/10),on=(i/10)<=pct;x.beginPath();x.moveTo(cx+Math.cos(a)*(R-32),cy+Math.sin(a)*(R-32));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle=on?accent:'rgba(251,234,211,.28)';x.lineWidth=3;x.globalAlpha=on?1:.8;x.stroke();x.globalAlpha=1;const v=GOAL*i/10;x.fillStyle=on?accent:'rgba(251,234,211,.4)';x.globalAlpha=on?1:.9;x.font='700 13px "Space Grotesk",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(v===0?'$0':v>=1e6?'$1M':'$'+(v/1e3)+'K',cx+Math.cos(a)*(R-50),cy+Math.sin(a)*(R-50));x.globalAlpha=1}
+  for(let i=0;i<=40;i++){if(i%4===0)continue;const a=S+SW*(i/40);x.beginPath();x.moveTo(cx+Math.cos(a)*(R-22),cy+Math.sin(a)*(R-22));x.lineTo(cx+Math.cos(a)*(R-12),cy+Math.sin(a)*(R-12));x.strokeStyle='rgba(251,234,211,.18)';x.lineWidth=1;x.globalAlpha=.7;x.stroke();x.globalAlpha=1}
   const nL=R-30,nB=28,nW=6,tX=cx+Math.cos(nA)*nL,tY=cy+Math.sin(nA)*nL,tlX=cx-Math.cos(nA)*nB,tlY=cy-Math.sin(nA)*nB,pp=nA+Math.PI/2;
-  x.shadowColor='rgba(16,26,18,.25)';x.shadowBlur=8;x.beginPath();x.moveTo(tlX,tlY);x.lineTo(cx+Math.cos(pp)*nW,cy+Math.sin(pp)*nW);x.lineTo(tX,tY);x.lineTo(cx-Math.cos(pp)*nW,cy-Math.sin(pp)*nW);x.closePath();x.fillStyle='#101a12';x.fill();x.shadowBlur=0;x.shadowColor='transparent';
+  x.shadowColor='rgba(0,0,0,.5)';x.shadowBlur=8;x.beginPath();x.moveTo(tlX,tlY);x.lineTo(cx+Math.cos(pp)*nW,cy+Math.sin(pp)*nW);x.lineTo(tX,tY);x.lineTo(cx-Math.cos(pp)*nW,cy-Math.sin(pp)*nW);x.closePath();x.fillStyle='#fbead3';x.fill();x.shadowBlur=0;x.shadowColor='transparent';
   x.beginPath();x.arc(tX,tY,5,0,6.28);x.fillStyle=accent;x.fill();
-  x.beginPath();x.arc(cx,cy,22,0,6.28);x.fillStyle='#101a12';x.fill();
+  x.beginPath();x.arc(cx,cy,22,0,6.28);x.fillStyle='#241836';x.fill();
   x.beginPath();x.arc(cx,cy,14,0,6.28);x.fillStyle=hub;x.fill();
   x.beginPath();x.arc(cx,cy,6,0,6.28);x.fillStyle='#fff';x.fill();x.restore();
 }
@@ -410,8 +427,8 @@ function animateTo(tH,tB,tT){
   tT=tT!==undefined?tT:(tH+tB);const fH=curH,fB=curB,fT=curT,t0=performance.now();
   (function fr(ts){const t=Math.min((ts-t0)/2000,1),e=1-Math.pow(1-t,3);
     curH=fH+(tH-fH)*e;curB=fB+(tB-fB)*e;curT=fT+(tT-fT)*e;
-    drawSpeedo('c1',curH/GOAL,'#0089a8','rgba(0,137,168,.3)','#00697f');
-    drawSpeedo('c2',curB/GOAL,'#454d58','rgba(69,77,88,.25)','#2b323c');
+    drawSpeedo('c1',curH/GOAL,'#2dc9ef','rgba(45,201,239,.6)','#17a7cf');
+    drawSpeedo('c2',curB/GOAL,'#cdd5e2','rgba(205,213,226,.45)','#aab4c6');
     updateLabels(curH,curB,curT);if(t<1)requestAnimationFrame(fr)})(t0);
 }
 
@@ -421,20 +438,20 @@ function updateLabels(hV,bV,tV){
   document.getElementById('h_pct').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_pct').textContent=(bP*100).toFixed(1)+'%';
   document.getElementById('h_bar').style.width=Math.min(hP*100,100)+'%';document.getElementById('b_bar').style.width=Math.min(bP*100,100)+'%';
   document.getElementById('h_Closed').textContent=money(hV);document.getElementById('b_Closed').textContent=money(bV);
-  document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'✅ Done';
-  document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'✅ Done';
+  document.getElementById('h_remain').textContent=(GOAL-hV)>0?money(GOAL-hV):'✅ Maxed';
+  document.getElementById('b_remain').textContent=(GOAL-bV)>0?money(GOAL-bV):'✅ Maxed';
   document.getElementById('h_comp').textContent=(hP*100).toFixed(1)+'%';document.getElementById('b_comp').textContent=(bP*100).toFixed(1)+'%';
   if(hV>=GOAL)document.getElementById('homesBadge').style.display='block';
   if(bV>=GOAL)document.getElementById('brkctyBadge').style.display='block';
   const CG=2e6,tP=Math.min(tV/CG,1);
   document.getElementById('total_val').textContent=money(tV);document.getElementById('total_bar').style.width=(tP*100)+'%';
   document.getElementById('total_pct').textContent=(tP*100).toFixed(1)+'%';document.getElementById('ts_homes').textContent=money(hV);
-  document.getElementById('ts_brkcty').textContent=money(bV);document.getElementById('ts_remain').textContent=(CG-tV)>0?money(CG-tV):'✅ Done';
+  document.getElementById('ts_brkcty').textContent=money(bV);document.getElementById('ts_remain').textContent=money(tV);
 }
 
 function updateCD(){
   const d=COUNTDOWN_TARGET-new Date();
-  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='💵 '+MONTH_NAME+' Complete!';return}
+  if(d<=0){['cd-days','cd-hours','cd-mins','cd-secs'].forEach(i=>document.getElementById(i).textContent='00');document.getElementById('cd-label').textContent='🎃 '+MONTH_NAME+' Complete!';return}
   const dy=Math.floor(d/864e5),hr=Math.floor((d%864e5)/36e5),mn=Math.floor((d%36e5)/6e4),sc=Math.floor((d%6e4)/1e3);
   document.getElementById('cd-days').textContent=String(dy).padStart(2,'0');document.getElementById('cd-hours').textContent=String(hr).padStart(2,'0');
   document.getElementById('cd-mins').textContent=String(mn).padStart(2,'0');document.getElementById('cd-secs').textContent=String(sc).padStart(2,'0');
@@ -451,11 +468,11 @@ function fetchData(){
       animateTo(h,b,tt);}).catch(()=>{});
 }
 
-drawSpeedo('c1',0,'#0089a8','rgba(0,137,168,.3)','#00697f');
-drawSpeedo('c2',0,'#454d58','rgba(69,77,88,.25)','#2b323c');
+drawSpeedo('c1',0,'#2dc9ef','rgba(45,201,239,.6)','#17a7cf');
+drawSpeedo('c2',0,'#cdd5e2','rgba(205,213,226,.45)','#aab4c6');
 fetchData();setInterval(fetchData,300000);
 
-/* white-screen watchdog — bg is pale money-green (rgb(237,242,228)) so this only fires on a real blank render */
+/* white-screen watchdog — bg is haunted eggplant (rgb(19,12,31)) so this only fires on a real blank render */
 setInterval(()=>{const bg=getComputedStyle(document.body).backgroundColor;if(bg==='rgba(0, 0, 0, 0)'||bg==='rgb(255, 255, 255)'||bg==='')location.reload(true)},3000);
 window.onerror=()=>{setTimeout(()=>location.reload(true),3000);return true};
 </script>
